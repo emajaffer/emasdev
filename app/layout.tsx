@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://emamocanu.com"),
-  title: "EMA.dev | Full Stack Developer — Ema Mocanu",
+  title: "EMA.dev | Software & System Engineer — Ema Mocanu",
   description:
-    "Hi, I'm Ema — a full stack developer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
+    "Hi, I'm Ema — a software & system engineer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
   keywords: [
     "full stack developer",
     "portfolio",
@@ -32,16 +32,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "EMA.dev",
-    title: "EMA.dev | Full Stack Developer — Ema Mocanu",
+    title: "EMA.dev | Software & System Engineer — Ema Mocanu",
     description:
-      "Hi, I'm Ema — a full stack developer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
+      "Hi, I'm Ema — a software & system engineer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
     url: "https://emamocanu.com",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EMA.dev | Full Stack Developer — Ema Mocanu",
+    title: "EMA.dev | Software & System Engineer — Ema Mocanu",
     description:
-      "Hi, I'm Ema — a full stack developer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
+      "Hi, I'm Ema — a software & system engineer building with code, creativity, and AI. Explore my projects and the future I'm building, one idea at a time.",
   },
   icons: {
     icon: [
@@ -61,7 +61,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Ema Mocanu",
   url: "https://emamocanu.com",
-  jobTitle: "Full Stack Developer",
+  jobTitle: "Software & System Engineer",
   sameAs: ["https://github.com/emajaffer"],
 };
 
