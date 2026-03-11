@@ -68,7 +68,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-text-dark">Ema Mocanu</span>
-              <span className="text-xs font-medium text-teal">✦ Software & System Engineer</span>
+              <span className="text-xs font-medium text-teal">✦ Software & Systems Engineer</span>
             </div>
           </div>
 

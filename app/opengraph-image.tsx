@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "EMA.dev — Software & System Engineer";
+export const alt = "EMA.dev — Software & Systems Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -49,7 +49,7 @@ export default function OgImage() {
               marginTop: "8px",
             }}
           >
-            Software & System Engineer
+            Software & Systems Engineer
           </div>
           <div
             style={{
