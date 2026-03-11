@@ -1,0 +1,166 @@
+B-Secret.com Screenshot Capture Log
+=====================================
+Date: 2026-03-11
+Purpose: Portfolio case study screenshots
+
+All screenshots were captured via browser automation from the live site at https://www.b-secret.com
+
+SCREENSHOTS CAPTURED (Browser Session IDs):
+============================================
+
+1. LANDING PAGE - HERO SECTION (English)
+   - URL: https://www.b-secret.com/en
+   - Screenshot ID: ss_7740ddyuq
+   - Description: Full hero section with "Discover Your Beauty Secret" headline,
+     booking widget showing next available slot, instant booking card, salon interior
+     photo, service category tags, and CTA buttons (Book an Appointment, View Services,
+     Find Us). Soft pink/blush color palette with elegant serif typography.
+
+2. LANDING PAGE - SERVICE CATEGORIES & TREATMENTS
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: Circular service category images (Hairdressing, Hair Extensions),
+     "Explore our treatments" heading with browsable categories (Lashes, Facial Treatments,
+     IPL Hair Removal, Nails, Cosmetics, Waxing).
+
+3. LANDING PAGE - SPECIALIST CARDS CAROUSEL
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: "The specialists who transform your visit" section with swipeable
+     team member cards showing name, role, experience, specialties, and personal quote.
+     Example: Mariana - Lash artist & skincare specialist, 5+ years.
+
+4. LANDING PAGE - TRANSPARENT PRICING SECTION
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: Service category cards with emoji icons, service counts, and starting
+     prices (Nails: 15 services from 20 lei, Lashes: 14 services from 50 lei, etc.).
+
+5. LANDING PAGE - WORK GALLERY
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: "Work gallery -- real results" with filterable photo carousel
+     (All, Salon, Hair, Nails, Brows, Skin) showing captioned work samples.
+
+6. LANDING PAGE - GIFT CARDS
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: Themed gift card designs in gradient colors (Just Because, Valentine's,
+     Mother's Day, Christmas, Graduation, Birthday) with "Get Gift Card" CTA.
+
+7. LANDING PAGE - CLIENT TESTIMONIALS & SOCIAL PROOF
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: Review carousel with 5-star reviews, proof metrics sidebar
+     (4.7 average rating, on-time appointments, personalized advice).
+
+8. LANDING PAGE - FAQ SECTION
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: Expandable accordion FAQ about services, booking, hours, pricing,
+     location, and hair removal types.
+
+9. LANDING PAGE - CONTACT & LOCATION
+   - URL: https://www.b-secret.com/en (scrolled)
+   - Description: "Visit us at Asmita Gardens, Bucharest" with contact info cards
+     (Location, Phone, Email, WhatsApp), business hours, embedded Google Map with pin,
+     and "Get Directions" button.
+
+10. LANDING PAGE - FOOTER
+    - URL: https://www.b-secret.com/en (scrolled)
+    - Description: Footer with Beauty Secret logo, copyright, service links,
+      information links (Team, Pricing, Gallery, FAQ, Contact, Privacy),
+      and social media (@beauty.secret.ro).
+
+11. SERVICES INDEX PAGE
+    - URL: https://www.b-secret.com/en/services
+    - Screenshot ID: ss_8672y958m
+    - Description: "Choose your service" page with 5 category cards (Hair, Manicure,
+      Beauty Care, Permanent Hair Removal, Lashes) each with icon, description,
+      and "Go to booking" link.
+
+12. HAIR/HAIRDRESSING SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/coafor
+    - Screenshot ID: ss_1669pp2c9
+    - Description: 43 services, from 25 lei. Specialist: Oana. Pricing grid showing
+      Haircut (90 lei), Trim ends (50 lei), Cut+Wash+Style variants, etc.
+      Category-specific FAQ section.
+
+13. MANICURE & PEDICURE SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/unghii
+    - Screenshot ID: ss_8147jn48i
+    - Description: 15 services, from 20 lei. Specialist: Ioana. Services include
+      Gel on natural nail, Semi apex, Nail construction sizes, Slim variants.
+
+14. LASH EXTENSIONS SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/gene
+    - Screenshot ID: ss_37801dc9g
+    - Description: 14 services, from 50 lei. Specialist: Maria. Services include
+      1D through 5/6D extensions, Wispy, Wet Look (C and M curl) variants.
+
+15. COSMETICS & BROWS SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/cosmetica
+    - Screenshot ID: ss_47856md0f
+    - Description: 7 services, from 30 lei. Specialist: Bianca. Henna brow tinting,
+      brow styling, facial massage, brow grooming services.
+
+16. IPL PERMANENT HAIR REMOVAL SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/epilare-definitiva
+    - Screenshot ID: ss_1474fidcj
+    - Description: 37 services, from 80 lei. Specialist: Oana. Organized by
+      Women and Men sections with zone-based pricing for face and body areas.
+
+17. FACIAL TREATMENTS SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/tratamente-faciale
+    - Screenshot ID: ss_0553dwmo3
+    - Description: 11 services, from 250 lei. Specialist: Bianca. Ultrasonic cleansing,
+      Global Lift, Anti-wrinkle, Hydrating, Acne skin, Radiance, Dark spot treatments.
+
+18. HAIR EXTENSIONS SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/extensii-par
+    - Screenshot ID: ss_0177mx0g4
+    - Description: 25 services, from 7 lei/strand. Specialist: Oana. Nano-keratin
+      by length (50cm-80cm), plus maintenance services.
+
+19. WAXING SERVICE PAGE
+    - URL: https://www.b-secret.com/en/services/epilare-ceara
+    - Screenshot ID: ss_9387jf9fh
+    - Description: 25 services, from 16 lei. Specialist: Bianca. Organized by
+      Women and Men sections covering face and body zones.
+
+20. BOOKING FLOW - STEP 1: CHOOSE SERVICE
+    - Screenshot ID: ss_4099j32gw
+    - Description: Modal overlay with service category pills and scrollable
+      service list showing name, duration, and price. Progress dots at top.
+
+21. BOOKING FLOW - STEP 2: PICK DATE & TIME (Calendar)
+    - Screenshot ID: ss_5257clyc8
+    - Description: Calendar widget for March 2026 with selectable dates.
+      Right panel shows "Select a date to see available times" placeholder.
+
+22. BOOKING FLOW - STEP 2: PICK DATE & TIME (Time Slots)
+    - Screenshot ID: ss_8093es08j
+    - Description: After selecting a date, available time slots appear organized
+      by Morning/Afternoon. 15-minute intervals (09:00, 09:15, 09:30, etc.).
+      Selected time shown in pink with confirmation banner below.
+
+23. BOOKING FLOW - STEP 3: CHOOSE STYLIST
+    - Screenshot ID: ss_28054aplf
+    - Description: Stylist selection with avatar, name (Oana), and role
+      (Hair extension specialist & IPL expert). Selected state with checkmark.
+
+24. BOOKING FLOW - STEP 4: CONTACT DETAILS
+    - Screenshot ID: ss_89967acjf
+    - Description: Form with Full name, Email (optional), Phone (required),
+      and Notes (optional) fields. Privacy notice at bottom.
+
+25. LANDING PAGE - HERO (Romanian Version)
+    - URL: https://www.b-secret.com/
+    - Screenshot ID: ss_845663jb9
+    - Description: Same layout as English hero but fully translated to Romanian.
+      "Descoper-ti Secretul Frumusetii" headline. Demonstrates bilingual support.
+
+SITE ARCHITECTURE NOTES:
+=========================
+- Single-page landing at /en (English) and / (Romanian)
+- Sections (Team, Prices, Gallery, Gift Cards, Contact) are anchor links on landing page
+- Individual service category pages at /en/services/{category-slug}
+- Services index at /en/services
+- Booking flow is a multi-step modal overlay (5 steps with progress dots)
+- Admin/Dashboard pages at /admin (require authentication)
+- WhatsApp integration for customer messaging
+- Google Maps embed for location
+- Bilingual: Romanian (default) + English
