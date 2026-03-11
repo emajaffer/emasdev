@@ -91,7 +91,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
             <a
-              href="#projects"
+              href="/projects"
               className="rounded-full bg-gradient-to-r from-teal to-purple px-7 py-3 text-center text-sm font-semibold text-white shadow-md transition-transform hover:scale-105"
             >
               View Projects
@@ -178,14 +178,23 @@ export default function Home() {
                 </span>
               ))}
             </div>
-            <a
-              href="https://b-secret.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-teal transition-colors hover:text-purple"
-            >
-              Visit b-secret.com &rarr;
-            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="/projects/beauty-secret"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-teal transition-colors hover:text-purple"
+              >
+                View Case Study &rarr;
+              </a>
+              <span className="text-border-teal">|</span>
+              <a
+                href="https://b-secret.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-teal transition-colors hover:text-purple"
+              >
+                Visit b-secret.com &rarr;
+              </a>
+            </div>
           </div>
 
           {/* Card 3 — A Note */}
