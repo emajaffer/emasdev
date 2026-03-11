@@ -63,7 +63,7 @@ body::after {
 .bg-clip-text {
   background:
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url('/hero-bg.png') center / cover no-repeat fixed;
+    url('/hero-bg-sm.png') center / cover no-repeat fixed;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -73,7 +73,7 @@ body::after {
   display: inline-block;
   background:
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url('/hero-bg.png') center / cover no-repeat fixed;
+    url('/hero-bg-sm.png') center / cover no-repeat fixed;
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   mask-size: contain;
@@ -97,7 +97,7 @@ body::after {
 .bg-clip-dot {
   background:
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url('/hero-bg.png') center / cover no-repeat fixed;
+    url('/hero-bg-sm.png') center / cover no-repeat fixed;
   animation: dot-pulse 1.4s ease-in-out infinite;
 }
 
