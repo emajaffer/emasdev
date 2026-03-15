@@ -2,25 +2,18 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-
-const focusedTexts = [
-  "Debugging my life and pretending it\u2019s just one missing semicolon.",
-  "Building pretty interfaces and emotionally attaching myself to gradients.",
-  "Turning caffeine, chaos, and good taste into full stack projects.",
-  "Making things look effortless after fighting for my life in the code.",
-  "Designing cute things and fixing the bugs they refuse to talk about.",
-  "Romanticizing full stack development one polished component at a time.",
-  "Mixing logic, aesthetics, and a tiny bit of delusion.",
-  "Creating clean UIs, complex systems, and unrealistic standards for both.",
-  "Converting late-night thoughts into elegant interfaces and functioning backend logic.",
-  "Making beautiful things work and making working things beautiful.",
-  "Living somewhere between git commit, girl mode, and great taste.",
-];
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Home() {
+  const t = useTranslations("home");
   const [noteExpanded, setNoteExpanded] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
   const [focusedPhase, setFocusedPhase] = useState<"loading" | "showing">("loading");
+
+  const focusedTexts = Array.from({ length: 11 }, (_, i) =>
+    t(`focusedTexts.${i}`)
+  );
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -33,7 +26,8 @@ export default function Home() {
       }, 4000);
     }
     return () => clearTimeout(timeout);
-  }, [focusedPhase]);
+  }, [focusedPhase, focusedTexts.length]);
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-4 py-12">
       {/* Background photo */}
@@ -68,39 +62,34 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-text-dark">Ema Mocanu</span>
-              <span className="text-xs font-medium text-teal">✦ Software & Systems Engineer</span>
+              <span className="text-xs font-medium text-teal">{t("badge")}</span>
             </div>
           </div>
 
           <h1 className="mb-3 text-5xl font-extrabold tracking-tight text-text-dark sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.05' }}>
-            Building
+            {t("heading1")}
             <br />
-            <span className="bg-clip-text">beautiful things</span>
+            <span className="bg-clip-text">{t("heading2")}</span>
             <br />
-            for the future.
+            {t("heading3")}
           </h1>
 
           <p className="mb-5 max-w-lg text-sm leading-relaxed text-text-muted sm:text-base">
-            Hi, I&apos;m Ema — a full stack developer with a soft spot for
-            beautiful design, smart functionality, and bringing ideas to life.
-            I build with code, creativity, and AI by my side, because working
-            harder instead of smarter was never really my thing. This is where
-            I share my projects and the future I&apos;m building, one idea at
-            a time.
+            {t("description")}
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-            <a
+            <Link
               href="/projects"
               className="rounded-full bg-gradient-to-r from-teal to-purple px-7 py-3 text-center text-sm font-semibold text-white shadow-md transition-transform hover:scale-105"
             >
-              View Projects
-            </a>
+              {t("viewProjects")}
+            </Link>
             <a
               href="#about"
               className="rounded-full border border-border-teal bg-white/80 px-7 py-3 text-center text-sm font-semibold text-text-dark transition-transform hover:scale-105"
             >
-              Read More
+              {t("readMore")}
             </a>
           </div>
 
@@ -137,7 +126,7 @@ export default function Home() {
           {/* Card 1 — Currently Focused On */}
           <div className="flex flex-col items-center rounded-3xl border border-white/30 bg-white/90 px-8 py-8 text-center shadow-2xl backdrop-blur-xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-teal">
-              Currently Focused On
+              {t("currentlyFocused")}
             </p>
             <div className="flex h-[3.5rem] items-center justify-center">
               {focusedPhase === "loading" ? (
@@ -157,16 +146,13 @@ export default function Home() {
           {/* Card 2 — Featured Project */}
           <div className="rounded-3xl border border-white/30 bg-white/90 px-8 py-8 shadow-2xl backdrop-blur-xl">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-teal">
-              Featured Project
+              {t("featuredProject")}
             </p>
             <h2 className="mb-2 text-xl font-bold text-text-dark">
-              Beauty Secret
+              {t("beautySecretTitle")}
             </h2>
             <p className="mb-3 text-sm leading-relaxed text-text-muted">
-              A full stack luxury beauty salon platform with a 5-step booking
-              wizard, Stripe payments, real-time Convex database, role-based
-              dashboards for customers, employees &amp; admins, scroll-reveal
-              animations, gallery lightbox, and bilingual support (EN/RO).
+              {t("beautySecretDesc")}
             </p>
             <div className="mb-4 flex flex-wrap gap-1.5">
               {["Next.js 16", "React 19", "Tailwind CSS 4", "Convex", "Clerk", "Stripe"].map((tech) => (
@@ -179,12 +165,12 @@ export default function Home() {
               ))}
             </div>
             <div className="flex items-center gap-4">
-              <a
+              <Link
                 href="/projects/beauty-secret"
                 className="inline-flex items-center gap-1 text-sm font-semibold text-teal transition-colors hover:text-purple"
               >
-                View Case Study &rarr;
-              </a>
+                {t("viewCaseStudy")} &rarr;
+              </Link>
               <span className="text-border-teal">|</span>
               <a
                 href="https://b-secret.com"
@@ -192,7 +178,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-sm font-semibold text-teal transition-colors hover:text-purple"
               >
-                Visit b-secret.com &rarr;
+                {t("visitSite")} &rarr;
               </a>
             </div>
           </div>
@@ -210,22 +196,17 @@ export default function Home() {
             </div>
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-teal">
-                My Mentor
+                {t("myMentor")}
               </p>
               <p className={`mb-2 text-xs leading-relaxed text-text-muted ${noteExpanded ? "" : "line-clamp-3"}`}>
-                For my coach, Habib Jaffer — thank you for always encouraging
-                me and showing me the right path with so much patience, vision,
-                and generosity. You poured your talent, knowledge, and belief
-                into me in a way that shaped the way I see my own potential.
-                Forever grateful for your guidance, your lessons, and the impact
-                you&apos;ve had on my journey.
+                {t("mentorText")}
               </p>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setNoteExpanded(!noteExpanded)}
                   className="text-xs font-medium text-teal transition-colors hover:text-purple"
                 >
-                  {noteExpanded ? "Show less" : "Read more"}
+                  {noteExpanded ? t("showLess") : t("readMoreBtn")}
                 </button>
                 <a
                   href="http://habibjaffer.com/"
@@ -233,7 +214,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-semibold text-teal transition-colors hover:text-purple"
                 >
-                  Visit his site &rarr;
+                  {t("visitHisSite")} &rarr;
                 </a>
               </div>
             </div>

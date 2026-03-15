@@ -1,7 +1,11 @@
 'use client'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import styles from '../beauty-secret.module.css'
 
 export function CaseStudyFooter() {
+  const t = useTranslations('beautySecret.footer')
+
   return (
     <footer className={styles.siteFooter}>
       <div className={styles.container}>
@@ -13,14 +17,14 @@ export function CaseStudyFooter() {
           Ema Mocanu
         </p>
         <p className={styles.footerRole}>
-          Software & Systems Engineer
+          {t('role')}
         </p>
 
         {/* Links */}
         <div className={styles.footerLinks}>
-          <a href="/">Portfolio</a>
+          <Link href="/">{t('portfolio')}</Link>
           <span className={styles.footerDot}>&middot;</span>
-          <a href="/projects">Projects</a>
+          <Link href="/projects">{t('projects')}</Link>
           <span className={styles.footerDot}>&middot;</span>
           <a href="https://github.com/emajaffer" target="_blank" rel="noopener noreferrer">GitHub</a>
           <span className={styles.footerDot}>&middot;</span>
@@ -29,12 +33,12 @@ export function CaseStudyFooter() {
 
         {/* Tech line */}
         <p className={styles.footerTech}>
-          Built with Next.js, React, TypeScript, Convex, Stripe & Clerk
+          {t('builtWith')}
         </p>
 
         {/* Copyright */}
         <p className={styles.footerCopy}>
-          &copy; {new Date().getFullYear()} Ema Mocanu. All rights reserved.
+          {t('copyright', { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>

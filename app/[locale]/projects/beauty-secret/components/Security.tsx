@@ -1,40 +1,30 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import styles from '../beauty-secret.module.css'
 
 /* ───── Data ───── */
 
-const securityHeaders = [
-  'Content-Security-Policy',
-  'HSTS',
-  'X-Frame-Options: DENY',
-  'X-Content-Type-Options: nosniff',
-  'Referrer-Policy',
-  'Permissions-Policy',
-]
+const securityHeaderKeys = [
+  'contentSecurityPolicy',
+  'hsts',
+  'xFrameOptions',
+  'xContentTypeOptions',
+  'referrerPolicy',
+  'permissionsPolicy',
+] as const
 
-const appSecurity = [
-  'Role-Based Access',
-  'JWT Verification',
-  'Webhook Signatures',
-  'Dual CSP Sync',
-  'Audit Trail',
-  'Error Boundaries',
-]
-
-interface CspDomain {
-  raw: string
-  tooltip?: string
-}
-
-const cspDomains: CspDomain[] = [
-  { raw: 'clerk.accounts.dev', tooltip: 'Authentication provider' },
-  { raw: '*.convex.cloud', tooltip: 'Real-time database' },
-  { raw: 'api.stripe.com', tooltip: 'Payment processing' },
-  { raw: 'maps.google.com', tooltip: 'Location embed' },
-]
+const appSecurityKeys = [
+  'roleBasedAccess',
+  'jwtVerification',
+  'webhookSignatures',
+  'dualCspSync',
+  'auditTrail',
+  'errorBoundaries',
+] as const
 
 export function Security() {
+  const t = useTranslations('beautySecret.security')
   const sectionRef = useScrollReveal()
 
   return (
@@ -42,8 +32,8 @@ export function Security() {
       <div className={styles.container}>
         {/* Section header */}
         <div className={`${styles.sectionHeader} ${styles.scrollAnim}`} data-reveal>
-          <div className={styles.sectionLabel}>Production Security</div>
-          <h2 className={styles.sectionTitle}>Security &amp; Compliance</h2>
+          <div className={styles.sectionLabel}>{t('sectionLabel')}</div>
+          <h2 className={styles.sectionTitle}>{t('sectionTitle')}</h2>
         </div>
 
         {/* Padlock SVG */}
@@ -90,18 +80,18 @@ export function Security() {
           {/* Card 1: Security Headers */}
           <div className={`${styles.card} ${styles.scrollAnim}`} data-reveal="100">
             <h3 className={styles.fw700} style={{ marginBottom: 16 }}>
-              Security Headers
+              {t('securityHeadersTitle')}
             </h3>
             <ul className={styles.featureList}>
-              {securityHeaders.map((item) => (
-                <li key={item} data-check-item>
+              {securityHeaderKeys.map((key) => (
+                <li key={key} data-check-item>
                   <span
                     className={styles.featureListIcon}
                     style={{ color: '#8ec07c' }}
                   >
                     &#10003;
                   </span>
-                  {item}
+                  {t(key)}
                 </li>
               ))}
             </ul>
@@ -110,18 +100,18 @@ export function Security() {
           {/* Card 2: Application Security */}
           <div className={`${styles.card} ${styles.scrollAnim}`} data-reveal="250">
             <h3 className={styles.fw700} style={{ marginBottom: 16 }}>
-              Application Security
+              {t('applicationSecurityTitle')}
             </h3>
             <ul className={styles.featureList}>
-              {appSecurity.map((item) => (
-                <li key={item} data-check-item>
+              {appSecurityKeys.map((key) => (
+                <li key={key} data-check-item>
                   <span
                     className={styles.featureListIcon}
                     style={{ color: '#8ec07c' }}
                   >
                     &#10003;
                   </span>
-                  {item}
+                  {t(key)}
                 </li>
               ))}
             </ul>
@@ -131,7 +121,7 @@ export function Security() {
         {/* CSP Domain Allowlist */}
         <div className={`${styles.mt32} ${styles.scrollAnim}`} data-reveal>
           <h3 className={styles.fw700} style={{ marginBottom: 16 }}>
-            CSP Domain Allowlist
+            {t('cspTitle')}
           </h3>
           <div className={styles.codeBlock}>
             <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
@@ -233,8 +223,10 @@ export function Security() {
             className={`${styles.textXs} ${styles.textDim}`}
             style={{ marginTop: 12 }}
           >
-            Hover over highlighted domains to see their purpose. Dual CSP configuration
-            syncs between <code>next.config.ts</code> headers and <code>vercel.json</code> overrides.
+            {t.rich('cspDesc', {
+              code1: (chunks) => <code>{chunks}</code>,
+              code2: (chunks) => <code>{chunks}</code>,
+            })}
           </p>
         </div>
       </div>

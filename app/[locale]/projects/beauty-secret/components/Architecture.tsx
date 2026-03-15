@@ -2,6 +2,7 @@
 import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTranslations } from 'next-intl'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import styles from '../beauty-secret.module.css'
@@ -12,157 +13,18 @@ gsap.registerPlugin(ScrollTrigger)
 
 interface ArchBox {
   title: string
-  sub: string
+  subKey: string
 }
 
 interface ArchLayer {
-  label: string
-  variant: string // CSS class: frontend | backend | service | infra
+  labelKey: string
+  variant: string
   boxes: ArchBox[]
 }
 
 interface ArchArrow {
-  text: string
+  textKey: string
 }
-
-const layers: ArchLayer[] = [
-  {
-    label: 'CLIENT LAYER',
-    variant: 'frontend',
-    boxes: [
-      { title: 'Next.js 16', sub: 'App Router + RSC' },
-      { title: 'React 19', sub: '102 Components' },
-      { title: 'Tailwind CSS 4', sub: 'Dark/Light Themes' },
-    ],
-  },
-  {
-    label: 'MIDDLEWARE',
-    variant: 'backend',
-    boxes: [
-      { title: 'Clerk Auth', sub: 'JWT + RBAC' },
-      { title: 'next-intl', sub: 'i18n Routing' },
-      { title: 'Proxy Middleware', sub: 'Auth + Locale' },
-    ],
-  },
-  {
-    label: 'BACKEND LAYER',
-    variant: 'backend',
-    boxes: [
-      { title: 'Convex', sub: 'Real-time Serverless DB' },
-      { title: '157+ Functions', sub: 'Queries + Mutations' },
-      { title: 'HTTP Actions', sub: 'Webhook Endpoints' },
-    ],
-  },
-  {
-    label: 'THIRD-PARTY SERVICES',
-    variant: 'service',
-    boxes: [
-      { title: 'Stripe', sub: 'Payments + Webhooks' },
-      { title: 'Google Maps', sub: 'Embed + Directions' },
-      { title: 'Instagram', sub: 'Gallery Feed' },
-      { title: 'WhatsApp', sub: 'Direct Contact' },
-    ],
-  },
-  {
-    label: 'INFRASTRUCTURE',
-    variant: 'infra',
-    boxes: [
-      { title: 'Vercel', sub: 'Edge Network' },
-      { title: 'Convex Cloud', sub: 'Serverless Backend' },
-      { title: 'Clerk Hosted', sub: 'Auth Infrastructure' },
-    ],
-  },
-]
-
-const arrows: ArchArrow[] = [
-  { text: 'WebSocket + REST' },
-  { text: 'Reactive Queries + Mutations' },
-  { text: 'External Integrations' },
-  { text: '' },
-]
-
-/* ───── Database schema ───── */
-
-const dbTables = [
-  { name: 'categories', purpose: 'Service categories (8 types)', features: 'Slugs, display order, i18n names' },
-  { name: 'services', purpose: '177+ beauty treatments', features: 'Per-unit pricing, duration, gender tags' },
-  { name: 'employees', purpose: 'Team members (4 active)', features: 'Bio, specialties, commission config' },
-  { name: 'employeeAvailability', purpose: 'Weekly schedules', features: 'Day-of-week + HH:mm time ranges' },
-  { name: 'employeeScheduleOverrides', purpose: 'Day-offs & custom hours', features: 'Date-specific overrides' },
-  { name: 'customers', purpose: 'Booking customers', features: 'Email/phone dedup, loyalty points' },
-  { name: 'appointments', purpose: 'Booking records', features: 'Status machine, conflict detection' },
-  { name: 'payments', purpose: 'Stripe transactions', features: 'Deposit (30%) or full, refund tracking' },
-  { name: 'reviews', purpose: '5-star ratings', features: 'Tied to completed appointments' },
-  { name: 'giftCards', purpose: 'Gift card system', features: 'Code generation, balance, expiry' },
-  { name: 'loyaltyTiers', purpose: '4-tier rewards', features: 'Points thresholds, auto-advancement' },
-  { name: 'loyaltyHistory', purpose: 'Point transactions', features: 'Earn/redeem with appointment links' },
-  { name: 'salaryPayments', purpose: 'Payroll records', features: 'Commission + salary tracking' },
-  { name: 'expenses', purpose: 'Operating costs', features: 'Categorized, monthly aggregation' },
-  { name: 'changeLogs', purpose: 'Audit trail', features: 'Before/after values, performer' },
-  { name: 'salonSettings', purpose: 'Global config', features: 'Hours, lead time, slot intervals' },
-]
-
-/* ───── Route cards ───── */
-
-interface RouteCard {
-  tag: string
-  tagClass: string
-  heading: string
-  items: string[]
-}
-
-const routeCards: RouteCard[] = [
-  {
-    tag: 'Public',
-    tagClass: 'tagGreen',
-    heading: 'Customer-Facing',
-    items: [
-      'Landing page (7 sections)',
-      'Service browsing & category pages',
-      '8 SEO category landing pages',
-      'Sign-in / Sign-up (Clerk)',
-    ],
-  },
-  {
-    tag: 'Protected',
-    tagClass: 'tagPurple',
-    heading: 'Customer Dashboard',
-    items: [
-      'Appointments (upcoming & past)',
-      'Loyalty tier & points history',
-      'Profile management',
-      'Booking preferences',
-    ],
-  },
-  {
-    tag: 'Protected',
-    tagClass: 'tagPink',
-    heading: 'Employee Dashboard',
-    items: [
-      "Today's schedule & calendar",
-      'Earnings & performance',
-      'Availability management',
-      'Achievements & reviews',
-    ],
-  },
-]
-
-const adminSubPages = [
-  'Appointments',
-  'Calendar + Heatmap',
-  'Staff Management',
-  'Service Catalog',
-  'Customer CRM',
-  'Financial Reports',
-  'Performance Analytics',
-  'Review Moderation',
-  'Gift Cards',
-  'Activity / Audit Log',
-  'Alerts System',
-  'Salary Payouts',
-]
-
-/* ───── SVG arrow component between layers ───── */
 
 function ArrowSVG({ label, id }: { label: string; id: string }) {
   return (
@@ -212,9 +74,113 @@ function ArrowSVG({ label, id }: { label: string; id: string }) {
 /* ───── Main component ───── */
 
 export function Architecture() {
+  const t = useTranslations('beautySecret.architecture')
   const sectionRef = useScrollReveal()
   const diagramRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
+
+  const layers: ArchLayer[] = [
+    {
+      labelKey: 'clientLayer',
+      variant: 'frontend',
+      boxes: [
+        { title: 'Next.js 16', subKey: 'appRouterRsc' },
+        { title: 'React 19', subKey: 'components102' },
+        { title: 'Tailwind CSS 4', subKey: 'darkLightThemes' },
+      ],
+    },
+    {
+      labelKey: 'middleware',
+      variant: 'backend',
+      boxes: [
+        { title: 'Clerk Auth', subKey: 'jwtRbac' },
+        { title: 'next-intl', subKey: 'i18nRouting' },
+        { title: 'Proxy Middleware', subKey: 'authLocale' },
+      ],
+    },
+    {
+      labelKey: 'backendLayer',
+      variant: 'backend',
+      boxes: [
+        { title: 'Convex', subKey: 'realtimeServerlessDb' },
+        { title: '157+ Functions', subKey: 'queriesMutations' },
+        { title: 'HTTP Actions', subKey: 'webhookEndpoints' },
+      ],
+    },
+    {
+      labelKey: 'thirdPartyServices',
+      variant: 'service',
+      boxes: [
+        { title: 'Stripe', subKey: 'paymentsWebhooks' },
+        { title: 'Google Maps', subKey: 'embedDirections' },
+        { title: 'Instagram', subKey: 'galleryFeed' },
+        { title: 'WhatsApp', subKey: 'directContact' },
+      ],
+    },
+    {
+      labelKey: 'infrastructure',
+      variant: 'infra',
+      boxes: [
+        { title: 'Vercel', subKey: 'edgeNetwork' },
+        { title: 'Convex Cloud', subKey: 'serverlessBackend' },
+        { title: 'Clerk Hosted', subKey: 'authInfrastructure' },
+      ],
+    },
+  ]
+
+  const arrows: ArchArrow[] = [
+    { textKey: 'websocketRest' },
+    { textKey: 'reactiveQueriesMutations' },
+    { textKey: 'externalIntegrations' },
+    { textKey: '' },
+  ]
+
+  const dbTables = [
+    { name: 'categories', purposeKey: 'dbCategories', featuresKey: 'dbCategoriesFeatures' },
+    { name: 'services', purposeKey: 'dbServices', featuresKey: 'dbServicesFeatures' },
+    { name: 'employees', purposeKey: 'dbEmployees', featuresKey: 'dbEmployeesFeatures' },
+    { name: 'employeeAvailability', purposeKey: 'dbEmployeeAvailability', featuresKey: 'dbEmployeeAvailabilityFeatures' },
+    { name: 'employeeScheduleOverrides', purposeKey: 'dbEmployeeScheduleOverrides', featuresKey: 'dbEmployeeScheduleOverridesFeatures' },
+    { name: 'customers', purposeKey: 'dbCustomers', featuresKey: 'dbCustomersFeatures' },
+    { name: 'appointments', purposeKey: 'dbAppointments', featuresKey: 'dbAppointmentsFeatures' },
+    { name: 'payments', purposeKey: 'dbPayments', featuresKey: 'dbPaymentsFeatures' },
+    { name: 'reviews', purposeKey: 'dbReviews', featuresKey: 'dbReviewsFeatures' },
+    { name: 'giftCards', purposeKey: 'dbGiftCards', featuresKey: 'dbGiftCardsFeatures' },
+    { name: 'loyaltyTiers', purposeKey: 'dbLoyaltyTiers', featuresKey: 'dbLoyaltyTiersFeatures' },
+    { name: 'loyaltyHistory', purposeKey: 'dbLoyaltyHistory', featuresKey: 'dbLoyaltyHistoryFeatures' },
+    { name: 'salaryPayments', purposeKey: 'dbSalaryPayments', featuresKey: 'dbSalaryPaymentsFeatures' },
+    { name: 'expenses', purposeKey: 'dbExpenses', featuresKey: 'dbExpensesFeatures' },
+    { name: 'changeLogs', purposeKey: 'dbChangeLogs', featuresKey: 'dbChangeLogsFeatures' },
+    { name: 'salonSettings', purposeKey: 'dbSalonSettings', featuresKey: 'dbSalonSettingsFeatures' },
+  ]
+
+  const routeCards = [
+    {
+      tagKey: 'public',
+      tagClass: 'tagGreen',
+      headingKey: 'customerFacing',
+      itemKeys: ['landingPage', 'serviceBrowsing', 'seoLandingPages', 'signInUp'],
+    },
+    {
+      tagKey: 'protected',
+      tagClass: 'tagPurple',
+      headingKey: 'customerDashboard',
+      itemKeys: ['appointmentsUpcoming', 'loyaltyTierPoints', 'profileManagement', 'bookingPreferences'],
+    },
+    {
+      tagKey: 'protected',
+      tagClass: 'tagPink',
+      headingKey: 'employeeDashboard',
+      itemKeys: ['todaysSchedule', 'earningsPerformance', 'availabilityManagement', 'achievementsReviews'],
+    },
+  ]
+
+  const adminSubPages = [
+    'Appointments', 'Calendar + Heatmap', 'Staff Management',
+    'Service Catalog', 'Customer CRM', 'Financial Reports',
+    'Performance Analytics', 'Review Moderation', 'Gift Cards',
+    'Activity / Audit Log', 'Alerts System', 'Salary Payouts',
+  ]
 
   /* ── GSAP: pinned scrollytelling for architecture diagram only ── */
   useEffect(() => {
@@ -224,7 +190,6 @@ export function Architecture() {
     const layerGroups = diagram.querySelectorAll<HTMLElement>('[data-layer]')
     const arrowWraps = diagram.querySelectorAll<HTMLElement>('[data-arrow]')
 
-    // Set initial state: all layers and arrows hidden
     gsap.set(layerGroups, { opacity: 0, y: 20 })
     gsap.set(arrowWraps, { opacity: 0 })
 
@@ -232,7 +197,6 @@ export function Architecture() {
 
     const ctx = gsap.context(() => {
       if (isDesktop) {
-        /* ── Desktop: pinned reveal ── */
         const totalSteps = layerGroups.length + arrowWraps.length
         const stepDuration = 100
 
@@ -283,7 +247,6 @@ export function Architecture() {
           }
         }
       } else {
-        /* ── Mobile: sequential scroll reveals (no pin) ── */
         layerGroups.forEach((el) => {
           gsap.to(el, {
             scrollTrigger: { trigger: el, start: 'top 90%', once: true },
@@ -327,28 +290,22 @@ export function Architecture() {
     }, diagram)
 
     return () => ctx.revert()
-  }, [reduced])
+  }, [reduced, layers.length, arrows.length])
 
   return (
     <section ref={sectionRef} className={styles.section} id="architecture">
       <div className={styles.container}>
-        {/* ── Section header ── */}
         <div className={`${styles.sectionHeader} ${styles.scrollAnim}`} data-reveal>
-          <div className={styles.sectionLabel}>Act II &mdash; The Build</div>
-          <h2 className={styles.sectionTitle}>How It All Fits Together</h2>
-          <p className={styles.sectionDesc}>
-            A serverless architecture built for real-time reactivity, type safety end-to-end, and
-            production-grade security.
-          </p>
+          <div className={styles.sectionLabel}>{t('sectionLabel')}</div>
+          <h2 className={styles.sectionTitle}>{t('sectionTitle')}</h2>
+          <p className={styles.sectionDesc}>{t('sectionDesc')}</p>
         </div>
 
-        {/* ── Architecture diagram ── */}
         <div ref={diagramRef} className={styles.archDiagram}>
           {layers.map((layer, i) => (
-            <div key={layer.label}>
-              {/* Layer group: label + boxes */}
+            <div key={layer.labelKey}>
               <div className={styles.archLayerGroup} data-layer={i}>
-                <div className={styles.archLayerLabel}>{layer.label}</div>
+                <div className={styles.archLayerLabel}>{t(layer.labelKey)}</div>
                 <div className={styles.archRow}>
                   {layer.boxes.map((box) => (
                     <div
@@ -357,46 +314,40 @@ export function Architecture() {
                     >
                       <strong>{box.title}</strong>
                       <br />
-                      <span className={styles.archBoxSub}>{box.sub}</span>
+                      <span className={styles.archBoxSub}>{t(box.subKey)}</span>
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Arrow between layers (except after last) */}
               {i < arrows.length && (
-                <ArrowSVG label={arrows[i].text} id={`arrow-${i}`} />
+                <ArrowSVG label={arrows[i].textKey ? t(arrows[i].textKey) : ''} id={`arrow-${i}`} />
               )}
             </div>
           ))}
         </div>
 
-        {/* ── Database schema ── */}
         <div className={`${styles.mt32} ${styles.scrollAnim}`} data-reveal>
           <h3 className={styles.fw700} style={{ marginBottom: 16 }}>
-            Database Schema &mdash; 16 Tables
+            {t('dbSchemaTitle')}
           </h3>
           <p className={`${styles.textSm} ${styles.textMuted}`} style={{ marginBottom: 16 }}>
-            Convex serverless database with real-time reactive queries, automatic cache invalidation,
-            and WebSocket-driven live updates. All prices stored in cents for precision.
+            {t('dbSchemaDesc')}
           </p>
           <div className={styles.codeBlock} style={{ overflowX: 'auto' }}>
             <table className={styles.dataTable}>
               <thead>
                 <tr>
-                  <th>Table</th>
-                  <th>Purpose</th>
-                  <th>Key Features</th>
+                  <th>{t('thTable')}</th>
+                  <th>{t('thPurpose')}</th>
+                  <th>{t('thKeyFeatures')}</th>
                 </tr>
               </thead>
               <tbody>
                 {dbTables.map((row) => (
                   <tr key={row.name}>
-                    <td>
-                      <code>{row.name}</code>
-                    </td>
-                    <td>{row.purpose}</td>
-                    <td>{row.features}</td>
+                    <td><code>{row.name}</code></td>
+                    <td>{t(row.purposeKey)}</td>
+                    <td>{t(row.featuresKey)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -404,27 +355,25 @@ export function Architecture() {
           </div>
         </div>
 
-        {/* ── Application routes ── */}
         <div className={styles.mt32}>
           <h3 className={styles.fw700} style={{ marginBottom: 16 }}>
-            Application Routes &mdash; 38 Pages
+            {t('appRoutesTitle')}
           </h3>
 
-          {/* 3-column grid for Public / Customer / Employee */}
           <div className={styles.grid3}>
             {routeCards.map((card, i) => (
-              <div key={card.heading} className={`${styles.card} ${styles.scrollAnim}`} data-reveal={`${i * 120}`}>
+              <div key={card.headingKey} className={`${styles.card} ${styles.scrollAnim}`} data-reveal={`${i * 120}`}>
                 <h4
                   className={`${styles.textSm} ${styles.fw600}`}
                   style={{ marginBottom: 12 }}
                 >
-                  <span className={`${styles.tag} ${styles[card.tagClass]}`}>{card.tag}</span>
-                  &nbsp;{card.heading}
+                  <span className={`${styles.tag} ${styles[card.tagClass]}`}>{t(card.tagKey)}</span>
+                  &nbsp;{t(card.headingKey)}
                 </h4>
                 <ul className={styles.featureList}>
-                  {card.items.map((item) => (
-                    <li key={item}>
-                      <span className={styles.icon}>&bull;</span> {item}
+                  {card.itemKeys.map((itemKey) => (
+                    <li key={itemKey}>
+                      <span className={styles.icon}>&bull;</span> {t(itemKey)}
                     </li>
                   ))}
                 </ul>
@@ -432,7 +381,6 @@ export function Architecture() {
             ))}
           </div>
 
-          {/* Admin card — full width */}
           <div className={`${styles.mt16} ${styles.scrollAnim}`} data-reveal>
             <div className={styles.card}>
               <h4
@@ -440,7 +388,7 @@ export function Architecture() {
                 style={{ marginBottom: 12 }}
               >
                 <span className={`${styles.tag} ${styles.tagYellow}`}>Admin</span>
-                &nbsp;Full Management Suite &mdash; 12 Sub-pages
+                &nbsp;{t('adminFullSuite')}
               </h4>
               <div className={styles.techGrid} style={{ marginTop: 16 }}>
                 {adminSubPages.map((page) => (

@@ -1,19 +1,21 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import styles from '../beauty-secret.module.css'
 
-const navLinks = [
-  { href: '#overview', label: 'Overview' },
-  { href: '#architecture', label: 'Architecture' },
-  { href: '#features', label: 'Features' },
-  { href: '#integrations', label: 'Integrations' },
-  { href: '#ai-fluency', label: 'AI Fluency' },
-  { href: '#testing', label: 'Testing' },
-  { href: '#security', label: 'Security' },
-]
-
 export function CaseStudyNav() {
+  const t = useTranslations('beautySecret.nav')
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const navLinks = [
+    { href: '#overview', labelKey: 'overview' },
+    { href: '#architecture', labelKey: 'architecture' },
+    { href: '#features', labelKey: 'features' },
+    { href: '#integrations', labelKey: 'integrations' },
+    { href: '#ai-fluency', labelKey: 'aiFluency' },
+    { href: '#testing', labelKey: 'testing' },
+    { href: '#security', labelKey: 'security' },
+  ]
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
@@ -29,9 +31,9 @@ export function CaseStudyNav() {
           <span className={styles.navLogoGradient}>EA</span> Mocanu
         </div>
         <ul className={styles.navLinks}>
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, labelKey }) => (
             <li key={href}>
-              <a href={href} onClick={(e) => scrollTo(e, href)}>{label}</a>
+              <a href={href} onClick={(e) => scrollTo(e, href)}>{t(labelKey)}</a>
             </li>
           ))}
         </ul>
@@ -41,7 +43,7 @@ export function CaseStudyNav() {
           rel="noopener noreferrer"
           className={`${styles.navCta} ${styles.navCtaDesktop}`}
         >
-          View Live Site →
+          {t('viewLiveSite')}
         </a>
         <button
           className={styles.hamburger}
@@ -57,9 +59,9 @@ export function CaseStudyNav() {
       {/* Mobile dropdown */}
       <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ''}`}>
         <ul className={styles.mobileMenuLinks}>
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, labelKey }) => (
             <li key={href}>
-              <a href={href} onClick={(e) => scrollTo(e, href)}>{label}</a>
+              <a href={href} onClick={(e) => scrollTo(e, href)}>{t(labelKey)}</a>
             </li>
           ))}
         </ul>
@@ -70,7 +72,7 @@ export function CaseStudyNav() {
           className={styles.navCta}
           style={{ display: 'block', textAlign: 'center', marginTop: 12 }}
         >
-          View Live Site →
+          {t('viewLiveSite')}
         </a>
       </div>
     </header>

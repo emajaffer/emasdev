@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -11,20 +12,20 @@ gsap.registerPlugin(ScrollTrigger)
 /* ───── Unit test modules ───── */
 
 interface TestModule {
-  name: string
+  nameKey: string
   count: number
 }
 
 const unitTestModules: TestModule[] = [
-  { name: 'SEO Regression', count: 53 },
-  { name: 'Gift Cards', count: 45 },
-  { name: 'Proxy Auth Policy', count: 35 },
-  { name: 'Stripe Checkout', count: 15 },
-  { name: 'Role Management', count: 13 },
-  { name: 'Date Utilities', count: 12 },
-  { name: 'Scroll Reveal', count: 10 },
-  { name: 'Loyalty System', count: 7 },
-  { name: 'Auth Proxy', count: 3 },
+  { nameKey: 'seoRegression', count: 53 },
+  { nameKey: 'giftCards', count: 45 },
+  { nameKey: 'proxyAuthPolicy', count: 35 },
+  { nameKey: 'stripeCheckout', count: 15 },
+  { nameKey: 'roleManagement', count: 13 },
+  { nameKey: 'dateUtilities', count: 12 },
+  { nameKey: 'scrollReveal', count: 10 },
+  { nameKey: 'loyaltySystem', count: 7 },
+  { nameKey: 'authProxy', count: 3 },
 ]
 
 const MAX_UNIT_COUNT = 53
@@ -34,15 +35,15 @@ const MAX_UNIT_COUNT = 53
 interface E2ESpec {
   spec: string
   scenarios: number
-  description: string
+  descKey: string
 }
 
 const e2eSpecs: E2ESpec[] = [
-  { spec: 'public', scenarios: 47, description: 'Public pages, SEO, navigation' },
-  { spec: 'customer', scenarios: 38, description: 'Booking flow, loyalty, profile' },
-  { spec: 'employee', scenarios: 42, description: 'Schedule, earnings, availability' },
-  { spec: 'admin', scenarios: 56, description: 'Dashboard, CRM, analytics' },
-  { spec: 'functional', scenarios: 38, description: 'Cross-cutting concerns, i18n' },
+  { spec: 'public', scenarios: 47, descKey: 'e2ePublic' },
+  { spec: 'customer', scenarios: 38, descKey: 'e2eCustomer' },
+  { spec: 'employee', scenarios: 42, descKey: 'e2eEmployee' },
+  { spec: 'admin', scenarios: 56, descKey: 'e2eAdmin' },
+  { spec: 'functional', scenarios: 38, descKey: 'e2eFunctional' },
 ]
 
 const deviceBadges = [
@@ -60,6 +61,7 @@ const deviceBadges = [
 ]
 
 export function Testing() {
+  const t = useTranslations('beautySecret.testing')
   const sectionRef = useScrollReveal()
   const barContainerRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
@@ -96,7 +98,7 @@ export function Testing() {
       <div className={styles.container}>
         {/* Section header */}
         <div className={`${styles.sectionHeader} ${styles.scrollAnim}`} data-reveal>
-          <div className={styles.sectionLabel}>Act III &mdash; The Result</div>
+          <div className={styles.sectionLabel}>{t('sectionLabel')}</div>
           <div
             className={styles.textXs}
             style={{
@@ -107,9 +109,9 @@ export function Testing() {
               marginBottom: 8,
             }}
           >
-            Quality Assurance
+            {t('qualityAssurance')}
           </div>
-          <h2 className={styles.sectionTitle}>Testing Strategy</h2>
+          <h2 className={styles.sectionTitle}>{t('sectionTitle')}</h2>
         </div>
 
         {/* Two-column layout */}
@@ -117,7 +119,7 @@ export function Testing() {
           {/* ─── Left: Unit Tests ─── */}
           <div ref={barContainerRef} className={`${styles.card} ${styles.scrollAnim}`} data-reveal>
             <h3 className={styles.fw700} style={{ marginBottom: 4 }}>
-              Unit Tests &mdash; 193 Cases
+              {t('unitTestsTitle')}
             </h3>
             <p
               className={`${styles.textXs} ${styles.textDim}`}
@@ -130,7 +132,7 @@ export function Testing() {
               {unitTestModules.map((mod) => {
                 const pct = Math.round((mod.count / MAX_UNIT_COUNT) * 100)
                 return (
-                  <div key={mod.name}>
+                  <div key={mod.nameKey}>
                     <div
                       style={{
                         display: 'flex',
@@ -139,7 +141,7 @@ export function Testing() {
                         fontSize: '0.82rem',
                       }}
                     >
-                      <span style={{ color: 'var(--muted)' }}>{mod.name}</span>
+                      <span style={{ color: 'var(--muted)' }}>{t(mod.nameKey)}</span>
                       <span style={{ color: 'var(--dim)', fontWeight: 600 }}>
                         {mod.count}
                       </span>
@@ -172,7 +174,7 @@ export function Testing() {
           {/* ─── Right: E2E Tests ─── */}
           <div className={`${styles.card} ${styles.scrollAnim}`} data-reveal="150">
             <h3 className={styles.fw700} style={{ marginBottom: 4 }}>
-              E2E Tests &mdash; 221 Scenarios
+              {t('e2eTestsTitle')}
             </h3>
             <p
               className={`${styles.textXs} ${styles.textDim}`}
@@ -184,9 +186,10 @@ export function Testing() {
               className={`${styles.textSm} ${styles.textMuted}`}
               style={{ marginBottom: 16 }}
             >
-              Cross-browser end-to-end tests running across{' '}
-              <strong style={{ color: 'var(--text)' }}>17 device profiles</strong>,
-              covering every user role and critical path in the application.
+              {t.rich('e2eDesc', {
+                strong: (chunks) => <strong style={{ color: 'var(--text)' }}>{chunks}</strong>,
+                count: 17,
+              })}
             </p>
 
             {/* E2E spec table */}
@@ -194,9 +197,9 @@ export function Testing() {
               <table className={styles.dataTable}>
                 <thead>
                   <tr>
-                    <th>Spec</th>
-                    <th>Scenarios</th>
-                    <th>Coverage</th>
+                    <th>{t('columnSpec')}</th>
+                    <th>{t('columnScenarios')}</th>
+                    <th>{t('columnCoverage')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -206,7 +209,7 @@ export function Testing() {
                         <code>{row.spec}</code>
                       </td>
                       <td>{row.scenarios}</td>
-                      <td>{row.description}</td>
+                      <td>{t(row.descKey)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -218,7 +221,7 @@ export function Testing() {
               className={`${styles.textXs} ${styles.fw600}`}
               style={{ marginBottom: 10, color: 'var(--dim)' }}
             >
-              DEVICE PROFILES
+              {t('deviceProfiles')}
             </p>
             <div className={styles.techGrid}>
               {deviceBadges.map((device, i) => (

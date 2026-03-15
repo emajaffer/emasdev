@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   LineChart,
   Line,
@@ -45,14 +46,16 @@ function StatCard({ value, label }: { value: string; label: string }) {
    ═══════════════════════════════════════════════════ */
 
 export function CustomerDashViz() {
+  const t = useTranslations('beautySecret.dashboards')
+
   return (
     <BrowserChrome url="b-secret.com/dashboard">
       {/* Stat cards */}
       <div className={styles.dashStatRow}>
-        <StatCard value="2" label="Upcoming" />
-        <StatCard value="8" label="Completed" />
-        <StatCard value="450" label="Total Spent (lei)" />
-        <StatCard value="160" label="Loyalty Points" />
+        <StatCard value="2" label={t('upcoming')} />
+        <StatCard value="8" label={t('completed')} />
+        <StatCard value="450" label={t('totalSpent')} />
+        <StatCard value="160" label={t('loyaltyPoints')} />
       </div>
 
       {/* Next appointment */}
@@ -64,7 +67,7 @@ export function CustomerDashViz() {
         padding: 16,
       }}>
         <div style={{ fontSize: '0.72rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, marginBottom: 8 }}>
-          Next Appointment
+          {t('nextAppointment')}
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
@@ -83,7 +86,7 @@ export function CustomerDashViz() {
             background: 'rgba(142, 192, 124, 0.15)',
             color: '#8ec07c',
           }}>
-            Confirmed
+            {t('confirmed')}
           </div>
         </div>
       </div>
@@ -98,7 +101,7 @@ export function CustomerDashViz() {
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
           <div style={{ fontSize: '0.72rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
-            Loyalty Tier
+            {t('loyaltyTier')}
           </div>
           <div style={{
             fontSize: '0.78rem',
@@ -141,6 +144,8 @@ export function CustomerDashViz() {
    ═══════════════════════════════════════════════════ */
 
 export function EmployeeDashViz() {
+  const t = useTranslations('beautySecret.dashboards')
+
   const schedule = [
     { time: '09:00', service: 'Haircut', client: 'Maria', status: 'done' },
     { time: '10:30', service: 'Lashes', client: 'Elena', status: 'active' },
@@ -148,19 +153,19 @@ export function EmployeeDashViz() {
   ]
 
   const badges = [
-    { emoji: '🏆', label: 'Top Performer', bg: 'rgba(250, 189, 47, 0.12)', color: '#fabd2f' },
-    { emoji: '⭐', label: '5-Star Streak', bg: 'rgba(196, 106, 134, 0.12)', color: 'var(--brand)' },
-    { emoji: '🎯', label: 'Consistency', bg: 'rgba(142, 192, 124, 0.12)', color: '#8ec07c' },
+    { emoji: '🏆', label: t('topPerformer'), bg: 'rgba(250, 189, 47, 0.12)', color: '#fabd2f' },
+    { emoji: '⭐', label: t('fiveStarStreak'), bg: 'rgba(196, 106, 134, 0.12)', color: 'var(--brand)' },
+    { emoji: '🎯', label: t('consistency'), bg: 'rgba(142, 192, 124, 0.12)', color: '#8ec07c' },
   ]
 
   return (
     <BrowserChrome url="b-secret.com/employee">
       {/* Stat cards */}
       <div className={styles.dashStatRow}>
-        <StatCard value="3" label="Today's Appts" />
-        <StatCard value="12" label="This Week" />
-        <StatCard value="4,200" label="Month Revenue" />
-        <StatCard value="94%" label="Completion" />
+        <StatCard value="3" label={t('todaysAppts')} />
+        <StatCard value="12" label={t('thisWeek')} />
+        <StatCard value="4,200" label={t('monthRevenue')} />
+        <StatCard value="94%" label={t('completion')} />
       </div>
 
       {/* Mini schedule table */}
@@ -173,14 +178,14 @@ export function EmployeeDashViz() {
       }}>
         <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--border)' }}>
           <span style={{ fontSize: '0.72rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
-            Today&apos;s Schedule
+            {t('todaysSchedule')}
           </span>
         </div>
         {schedule.map((row, i) => {
           const statusStyles: Record<string, { bg: string; color: string; label: string }> = {
-            done: { bg: 'rgba(142, 192, 124, 0.15)', color: '#8ec07c', label: 'Done' },
-            active: { bg: 'rgba(196, 106, 134, 0.15)', color: 'var(--brand)', label: 'Now' },
-            upcoming: { bg: 'rgba(167, 123, 214, 0.15)', color: 'var(--brand2)', label: 'Next' },
+            done: { bg: 'rgba(142, 192, 124, 0.15)', color: '#8ec07c', label: t('done') },
+            active: { bg: 'rgba(196, 106, 134, 0.15)', color: 'var(--brand)', label: t('now') },
+            upcoming: { bg: 'rgba(167, 123, 214, 0.15)', color: 'var(--brand2)', label: t('next') },
           }
           const st = statusStyles[row.status]
           return (
@@ -249,20 +254,22 @@ const revenueData = [
 ]
 
 export function AdminDashViz() {
+  const t = useTranslations('beautySecret.dashboards')
+
   const alerts = [
-    { color: '#fabd2f', label: 'Pending confirmation', detail: '2 appointments awaiting response' },
-    { color: '#ff5f57', label: 'Conflict detected', detail: 'Overlapping slot on Mar 16, 14:00' },
+    { color: '#fabd2f', label: t('pendingConfirmation'), detail: t('pendingConfirmationDetail') },
+    { color: '#ff5f57', label: t('conflictDetected'), detail: t('conflictDetectedDetail') },
   ]
 
   return (
     <BrowserChrome url="b-secret.com/admin">
       {/* 5 stat cards — use custom 5-col grid */}
       <div className={styles.adminStatGrid}>
-        <StatCard value="12" label="Appointments" />
-        <StatCard value="47" label="Clients" />
-        <StatCard value="78%" label="Occupancy" />
-        <StatCard value="2,400" label="Revenue (lei)" />
-        <StatCard value="3" label="Pending" />
+        <StatCard value="12" label={t('appointments')} />
+        <StatCard value="47" label={t('clients')} />
+        <StatCard value="78%" label={t('occupancy')} />
+        <StatCard value="2,400" label={t('revenueLei')} />
+        <StatCard value="3" label={t('pending')} />
       </div>
 
       {/* Revenue chart */}
@@ -274,7 +281,7 @@ export function AdminDashViz() {
         padding: 16,
       }}>
         <div style={{ fontSize: '0.72rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, marginBottom: 12 }}>
-          Weekly Revenue
+          {t('weeklyRevenue')}
         </div>
         <div style={{ width: '100%', height: 120 }}>
           <ResponsiveContainer width="100%" height="100%">
@@ -294,7 +301,7 @@ export function AdminDashViz() {
                   color: '#f5f0f1',
                 }}
                 labelStyle={{ color: '#a8999c' }}
-                formatter={(value) => [`${value} lei`, 'Revenue']}
+                formatter={(value) => [`${value} lei`, t('revenue')]}
               />
               <Line
                 type="monotone"
@@ -319,7 +326,7 @@ export function AdminDashViz() {
       }}>
         <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--border)' }}>
           <span style={{ fontSize: '0.72rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
-            Needs Attention
+            {t('needsAttention')}
           </span>
         </div>
         {alerts.map((alert, i) => (
@@ -357,13 +364,7 @@ export function AdminDashViz() {
    4. Dashboard Switcher — tabbed viewer
    ═══════════════════════════════════════════════════ */
 
-const dashTabs = [
-  { id: 'customer', label: 'Customer' },
-  { id: 'employee', label: 'Employee' },
-  { id: 'admin', label: 'Admin' },
-] as const
-
-type DashTabId = (typeof dashTabs)[number]['id']
+type DashTabId = 'customer' | 'employee' | 'admin'
 
 const dashPanels: Record<DashTabId, React.ComponentType> = {
   customer: CustomerDashViz,
@@ -372,8 +373,15 @@ const dashPanels: Record<DashTabId, React.ComponentType> = {
 }
 
 export function DashboardSwitcher() {
+  const t = useTranslations('beautySecret.dashboards')
   const [active, setActive] = useState<DashTabId>('customer')
   const Panel = dashPanels[active]
+
+  const dashTabs = [
+    { id: 'customer' as const, label: t('customer') },
+    { id: 'employee' as const, label: t('employee') },
+    { id: 'admin' as const, label: t('admin') },
+  ]
 
   return (
     <div className={styles.dashSwitcher}>

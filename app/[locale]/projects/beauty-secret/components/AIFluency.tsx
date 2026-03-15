@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -14,93 +15,30 @@ gsap.registerPlugin(ScrollTrigger)
 interface Metric {
   val: number
   suffix?: string
-  desc: string
+  descKey: string
 }
 
 const metrics: Metric[] = [
-  { val: 93, desc: 'AI Co-Authored Commits' },
-  { val: 83, suffix: '%', desc: 'of Commits AI-Assisted' },
-  { val: 112, desc: 'Total Commits' },
-  { val: 1, desc: 'Developer (Solo)' },
+  { val: 93, descKey: 'aiCoAuthoredCommits' },
+  { val: 83, suffix: '%', descKey: 'ofCommitsAiAssisted' },
+  { val: 112, descKey: 'totalCommits' },
+  { val: 1, descKey: 'developerSolo' },
 ]
 
-/* ───── AI info cards ───── */
+/* ───── AI info card keys ───── */
 
-interface AIInfoCard {
-  title: string
-  description: string
-}
+const aiInfoCardKeys = ['claudeMd', 'structuredSections'] as const
 
-const aiInfoCards: AIInfoCard[] = [
-  {
-    title: 'CLAUDE.md \u2014 AI Agent Configuration',
-    description:
-      'A comprehensive 310-line configuration file that serves as the "brain" for Claude Code \u2014 ' +
-      'documenting the entire architecture, database schema, routing structure, component organization, ' +
-      'data access patterns, authentication flow, and testing strategy. This enables the AI agent to ' +
-      'make context-aware decisions across the full stack.',
-  },
-  {
-    title: 'Structured CLAUDE.md Sections',
-    description:
-      'The configuration includes: project purpose, implemented features, remaining roadmap, ' +
-      'CLI commands, architecture decisions, Convex module reference table, routing structure, ' +
-      'data access patterns, booking system logic, auth flow, i18n config, component organization, ' +
-      'styling system, testing strategy, and a key files reference table.',
-  },
-]
+/* ───── "How AI Was Leveraged" card keys ───── */
 
-/* ───── "How AI Was Leveraged" cards ───── */
-
-interface LeverageCard {
-  title: string
-  description: string
-}
-
-const leverageCards: LeverageCard[] = [
-  {
-    title: 'Architecture & Schema Design',
-    description:
-      'Collaborative design of the 16-table database schema, index optimization strategy, ' +
-      'and the reactive query architecture. The AI agent reasoned about normalization trade-offs, ' +
-      'Convex-specific patterns, and real-time query performance.',
-  },
-  {
-    title: 'Feature Implementation',
-    description:
-      'Complex features like the availability slot algorithm, conflict detection, loyalty tier ' +
-      'computation, and Stripe webhook handling were developed iteratively with Claude Code, ' +
-      'leveraging its ability to reason about edge cases and time-based logic.',
-  },
-  {
-    title: 'Testing & SEO Regression',
-    description:
-      'The 53-test SEO regression suite and comprehensive E2E test strategy across 17 device ' +
-      'profiles were designed and implemented with AI assistance, ensuring coverage of ' +
-      'critical SEO signals and responsive layout integrity.',
-  },
-  {
-    title: 'Security Hardening',
-    description:
-      'Content Security Policy configuration, HSTS preload setup, dual CSP sync strategy ' +
-      '(next.config.ts + vercel.json), and role-based access control patterns were developed ' +
-      'with AI guidance on production security best practices.',
-  },
-  {
-    title: 'i18n & Unicode Handling',
-    description:
-      'Bilingual support with next-intl, 500+ translation strings, diacritics-aware search ' +
-      'using Unicode NFD normalization, and Sacramento font character normalization for Romanian ' +
-      'characters (comma-below to cedilla mapping).',
-  },
-  {
-    title: 'Iterative UI Polish',
-    description:
-      'Glass-morphism design system, GSAP animations, responsive breakpoint tuning across ' +
-      'commit iterations, and mobile-first layout fixes \u2014 reflecting the rapid ' +
-      'iteration cycle enabled by AI-augmented development.',
-  },
-]
+const leverageCardKeys = [
+  'leverageArch',
+  'leverageFeature',
+  'leverageTesting',
+  'leverageSecurity',
+  'leverageI18n',
+  'leverageUI',
+] as const
 
 /* ───── CLAUDE.md typewriter lines ───── */
 
@@ -195,6 +133,7 @@ function buildDisplayLines(): DisplayLine[] {
 /* ───── Main component ───── */
 
 export function AIFluency() {
+  const t = useTranslations('beautySecret.aiFluency')
   const sectionRef = useScrollReveal()
   const typewriterRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
@@ -236,50 +175,49 @@ export function AIFluency() {
       <div className={styles.container}>
         {/* ── Section header ── */}
         <div className={`${styles.sectionHeader} ${styles.scrollAnim}`} data-reveal>
-          <div className={styles.sectionLabel}>AI-Augmented Development</div>
-          <h2 className={styles.sectionTitle}>Building with Claude Code</h2>
+          <div className={styles.sectionLabel}>{t('sectionLabel')}</div>
+          <h2 className={styles.sectionTitle}>{t('sectionTitle')}</h2>
           <p className={styles.sectionDesc}>
-            This project demonstrates fluency in AI-augmented software development,
-            using Claude Code as a development partner across the entire lifecycle.
+            {t('sectionDesc')}
           </p>
         </div>
 
         {/* ── Metric cards ── */}
         <div className={`${styles.grid4} ${styles.mb16}`}>
           {metrics.map((m, i) => (
-            <div key={m.desc} className={`${styles.metricCard} ${styles.scrollAnim}`} data-reveal={`${i * 100}`}>
+            <div key={m.descKey} className={`${styles.metricCard} ${styles.scrollAnim}`} data-reveal={`${i * 100}`}>
               <div className={styles.metricVal}>
                 <AnimatedCounter target={m.val} suffix={m.suffix} />
               </div>
-              <div className={styles.metricDesc}>{m.desc}</div>
+              <div className={styles.metricDesc}>{t(m.descKey)}</div>
             </div>
           ))}
         </div>
 
         {/* ── AI info cards ── */}
         <div className={styles.grid2}>
-          {aiInfoCards.map((card, i) => (
-            <div key={card.title} className={`${styles.aiCard} ${styles.scrollAnim}`} data-reveal={`${i * 150}`}>
-              <h4>{card.title}</h4>
-              <p>{card.description}</p>
+          {aiInfoCardKeys.map((key, i) => (
+            <div key={key} className={`${styles.aiCard} ${styles.scrollAnim}`} data-reveal={`${i * 150}`}>
+              <h4>{t(`${key}Title`)}</h4>
+              <p>{t(`${key}Desc`)}</p>
             </div>
           ))}
         </div>
 
         {/* ── How AI Was Leveraged ── */}
         <div className={styles.mt24}>
-          <h3 className={`${styles.fw700} ${styles.mb16} ${styles.scrollAnim}`} data-reveal>How AI Was Leveraged</h3>
+          <h3 className={`${styles.fw700} ${styles.mb16} ${styles.scrollAnim}`} data-reveal>{t('howAiLeveraged')}</h3>
           <div className={styles.grid3}>
-            {leverageCards.map((card, i) => {
+            {leverageCardKeys.map((key, i) => {
               const col = i % 3
               const row = Math.floor(i / 3)
               const delay = col * 150 + row * 100
               return (
-                <div key={card.title} className={`${styles.card} ${styles.scrollAnim}`} data-reveal={`${delay}`}>
+                <div key={key} className={`${styles.card} ${styles.scrollAnim}`} data-reveal={`${delay}`}>
                   <h4 className={`${styles.fw600} ${styles.textBrand} ${styles.mb12}`}>
-                    {card.title}
+                    {t(`${key}Title`)}
                   </h4>
-                  <p className={`${styles.textSm} ${styles.textMuted}`}>{card.description}</p>
+                  <p className={`${styles.textSm} ${styles.textMuted}`}>{t(`${key}Desc`)}</p>
                 </div>
               )
             })}
@@ -289,11 +227,10 @@ export function AIFluency() {
         {/* ── CLAUDE.md Typewriter Code Block ── */}
         <div className={styles.mt32}>
           <h3 className={`${styles.fw700} ${styles.mb16}`}>
-            CLAUDE.md Configuration Structure
+            {t('claudeMdConfigTitle')}
           </h3>
           <p className={`${styles.textSm} ${styles.textMuted} ${styles.mb16}`}>
-            The project&apos;s CLAUDE.md file acts as persistent context for the AI agent.
-            Here&apos;s how it&apos;s organized to maximize AI effectiveness:
+            {t('claudeMdConfigDesc')}
           </p>
           <div ref={typewriterRef} className={styles.codeBlock}>
             <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>

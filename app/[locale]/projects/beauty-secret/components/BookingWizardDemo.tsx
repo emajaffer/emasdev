@@ -1,43 +1,15 @@
 'use client'
 import { useState, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import styles from '../beauty-secret.module.css'
 
-/* ───── Step data ───── */
+/* ───── Step keys ───── */
 
-const steps = [
-  {
-    num: 1,
-    title: 'Choose Service',
-    desc: 'Category-filtered service selection with gender grouping, pricing, and duration display.',
-    visual: 'service-selection' as const,
-  },
-  {
-    num: 2,
-    title: 'Pick Date & Time',
-    desc: 'Calendar grid with real-time slot availability. 15-minute intervals, 30-day window, 60-minute lead time.',
-    visual: 'date-time' as const,
-  },
-  {
-    num: 3,
-    title: 'Choose Stylist',
-    desc: 'Staff filtered by service capability, showing ratings, bio, and availability for selected time.',
-    visual: 'stylist' as const,
-  },
-  {
-    num: 4,
-    title: 'Your Details',
-    desc: 'Guest or authenticated booking. Email/phone deduplication. Auto-fill from profile.',
-    visual: 'details' as const,
-  },
-  {
-    num: 5,
-    title: 'Confirm & Pay',
-    desc: 'Booking summary with edit buttons per section. Stripe Checkout: 30% deposit or full payment.',
-    visual: 'confirm' as const,
-  },
-]
+const stepKeys = ['step1', 'step2', 'step3', 'step4', 'step5'] as const
 
-type StepVisual = (typeof steps)[number]['visual']
+const stepVisuals = ['service-selection', 'date-time', 'stylist', 'details', 'confirm'] as const
+
+type StepVisual = (typeof stepVisuals)[number]
 
 /* ───── Shared inline style helpers ───── */
 
@@ -67,38 +39,39 @@ const serviceRow: React.CSSProperties = {
 /* ───── Step visual sub-components ───── */
 
 function ServiceSelectionVisual() {
-  const categories = ['Hairdressing', 'Lashes', 'Nails', 'Waxing', 'Makeup']
+  const t = useTranslations('beautySecret.bookingWizard')
+  const categoryKeys = ['catHairdressing', 'catLashes', 'catNails', 'catWaxing', 'catMakeup'] as const
   const services = [
-    { name: 'Haircut & Style', duration: '45 min', price: '120 lei', gender: 'F' },
-    { name: 'Balayage Full', duration: '180 min', price: '450 lei', gender: 'F' },
-    { name: "Men's Haircut", duration: '30 min', price: '60 lei', gender: 'M' },
-    { name: 'Root Touch-Up', duration: '90 min', price: '180 lei', gender: 'F' },
+    { nameKey: 'serviceHaircutStyle', duration: '45 min', price: '120 lei', gender: 'F' },
+    { nameKey: 'serviceBalayageFull', duration: '180 min', price: '450 lei', gender: 'F' },
+    { nameKey: 'serviceMensHaircut', duration: '30 min', price: '60 lei', gender: 'M' },
+    { nameKey: 'serviceRootTouchUp', duration: '90 min', price: '180 lei', gender: 'F' },
   ]
 
   return (
     <div>
       <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12, fontWeight: 600 }}>
-        Select a Service
+        {t('selectService')}
       </div>
       {/* Category pills */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
-        {categories.map((cat, i) => (
-          <span key={cat} style={pill(i === 0)}>{cat}</span>
+        {categoryKeys.map((key, i) => (
+          <span key={key} style={pill(i === 0)}>{t(key)}</span>
         ))}
       </div>
       {/* Service rows */}
       <div style={{ background: 'var(--bg2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)', overflow: 'hidden' }}>
         {services.map((svc, i) => (
-          <div key={svc.name} style={{
+          <div key={svc.nameKey} style={{
             ...serviceRow,
             background: i === 0 ? 'rgba(196, 106, 134, 0.08)' : 'transparent',
             borderLeft: i === 0 ? '3px solid var(--brand)' : '3px solid transparent',
             borderBottom: i === services.length - 1 ? 'none' : serviceRow.borderBottom,
           }}>
             <div>
-              <div style={{ fontWeight: 600, color: 'var(--text)', marginBottom: 2 }}>{svc.name}</div>
+              <div style={{ fontWeight: 600, color: 'var(--text)', marginBottom: 2 }}>{t(svc.nameKey)}</div>
               <div style={{ fontSize: '0.75rem', color: 'var(--dim)' }}>
-                {svc.duration} &middot; {svc.gender === 'M' ? 'Men' : 'Women'}
+                {svc.duration} &middot; {svc.gender === 'M' ? t('genderMen') : t('genderWomen')}
               </div>
             </div>
             <div style={{
@@ -119,6 +92,7 @@ function ServiceSelectionVisual() {
 }
 
 function DateTimeVisual() {
+  const t = useTranslations('beautySecret.bookingWizard')
   const dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
   const dates = [
     10, 11, 12, 13, 14, 15, 16,
@@ -132,7 +106,7 @@ function DateTimeVisual() {
       {/* Calendar */}
       <div>
         <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12, fontWeight: 600 }}>
-          March 2026
+          {t('calendarMonth')}
         </div>
         {/* Day headers */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4, textAlign: 'center', marginBottom: 8 }}>
@@ -170,7 +144,7 @@ function DateTimeVisual() {
       {/* Time slots */}
       <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: 20 }}>
         <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12, fontWeight: 600 }}>
-          Available Slots
+          {t('availableSlots')}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {slots.map(s => {
@@ -206,15 +180,16 @@ function DateTimeVisual() {
 }
 
 function StylistVisual() {
+  const t = useTranslations('beautySecret.bookingWizard')
   const stylists = [
-    { name: 'Oana', role: 'Senior Stylist', rating: '4.9', reviews: 42, selected: true, initials: 'O' },
-    { name: 'Maria', role: 'Lash Technician', rating: '4.8', reviews: 28, selected: false, initials: 'M' },
+    { name: 'Oana', roleKey: 'roleSeniorStylist', rating: '4.9', reviews: 42, selected: true, initials: 'O' },
+    { name: 'Maria', roleKey: 'roleLashTechnician', rating: '4.8', reviews: 28, selected: false, initials: 'M' },
   ]
 
   return (
     <div>
       <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, fontWeight: 600 }}>
-        Choose Your Stylist
+        {t('chooseStylist')}
       </div>
       <div className={styles.stylistGrid}>
         {stylists.map(s => (
@@ -271,7 +246,7 @@ function StylistVisual() {
               {s.name}
             </div>
             <div style={{ fontSize: '0.78rem', color: 'var(--dim)', marginBottom: 10 }}>
-              {s.role}
+              {t(s.roleKey)}
             </div>
             {/* Rating */}
             <div style={{ fontSize: '0.82rem' }}>
@@ -294,36 +269,37 @@ function StylistVisual() {
         textAlign: 'center',
         cursor: 'pointer',
       }}>
-        No preference &mdash; any available stylist
+        {t('noPreference')}
       </div>
     </div>
   )
 }
 
 function DetailsVisual() {
+  const t = useTranslations('beautySecret.bookingWizard')
   const fields = [
-    { label: 'Full Name', value: 'Elena Popescu', icon: '👤' },
-    { label: 'Email', value: 'elena@example.com', icon: '✉' },
-    { label: 'Phone', value: '+40 712 345 678', icon: '📱' },
-    { label: 'Notes (optional)', value: 'First time client, prefer natural look', icon: '📝' },
+    { labelKey: 'labelFullName', value: 'Elena Popescu', icon: '👤' },
+    { labelKey: 'labelEmail', value: 'elena@example.com', icon: '✉' },
+    { labelKey: 'labelPhone', value: '+40 712 345 678', icon: '📱' },
+    { labelKey: 'labelNotes', value: t('notesPlaceholder'), icon: '📝' },
   ]
 
   return (
     <div>
       <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, fontWeight: 600 }}>
-        Your Details
+        {t('yourDetails')}
       </div>
       {/* Guest/Sign in toggle */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-        <span style={pill(true)}>Guest Booking</span>
-        <span style={pill(false)}>Sign In</span>
+        <span style={pill(true)}>{t('guestBooking')}</span>
+        <span style={pill(false)}>{t('signIn')}</span>
       </div>
       {/* Form fields */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         {fields.map(f => (
-          <div key={f.label}>
+          <div key={f.labelKey}>
             <div style={{ fontSize: '0.75rem', color: 'var(--dim)', marginBottom: 6, fontWeight: 500 }}>
-              {f.label}
+              {t(f.labelKey)}
             </div>
             <div style={{
               background: 'var(--bg2)',
@@ -347,17 +323,18 @@ function DetailsVisual() {
 }
 
 function ConfirmVisual() {
+  const t = useTranslations('beautySecret.bookingWizard')
   const summaryRows = [
-    { label: 'Service', value: 'Haircut & Style', detail: '45 min' },
-    { label: 'Date & Time', value: 'Mar 15, 2026', detail: '10:30' },
-    { label: 'Stylist', value: 'Oana', detail: 'Senior Stylist' },
-    { label: 'Customer', value: 'Elena Popescu', detail: 'elena@example.com' },
+    { labelKey: 'summaryService', value: t('serviceHaircutStyle'), detail: '45 min' },
+    { labelKey: 'summaryDateTime', value: 'Mar 15, 2026', detail: '10:30' },
+    { labelKey: 'summaryStylist', value: 'Oana', detail: t('roleSeniorStylist') },
+    { labelKey: 'summaryCustomer', value: 'Elena Popescu', detail: 'elena@example.com' },
   ]
 
   return (
     <div>
       <div style={{ fontSize: '0.78rem', color: 'var(--dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, fontWeight: 600 }}>
-        Booking Summary
+        {t('bookingSummary')}
       </div>
       {/* Summary rows */}
       <div style={{
@@ -368,7 +345,7 @@ function ConfirmVisual() {
         marginBottom: 20,
       }}>
         {summaryRows.map((row, i) => (
-          <div key={row.label} style={{
+          <div key={row.labelKey} style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -376,7 +353,7 @@ function ConfirmVisual() {
             borderBottom: i === summaryRows.length - 1 ? 'none' : '1px solid rgba(52, 46, 48, 0.4)',
           }}>
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--dim)', marginBottom: 2 }}>{row.label}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--dim)', marginBottom: 2 }}>{t(row.labelKey)}</div>
               <div style={{ fontWeight: 600, color: 'var(--text)', fontSize: '0.9rem' }}>{row.value}</div>
               <div style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>{row.detail}</div>
             </div>
@@ -390,7 +367,7 @@ function ConfirmVisual() {
               border: '1px solid rgba(196, 106, 134, 0.2)',
               cursor: 'pointer',
             }}>
-              Edit
+              {t('edit')}
             </div>
           </div>
         ))}
@@ -403,7 +380,7 @@ function ConfirmVisual() {
         marginBottom: 20,
         padding: '0 4px',
       }}>
-        <span style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>Total</span>
+        <span style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>{t('total')}</span>
         <span style={{
           fontSize: '1.4rem',
           fontWeight: 800,
@@ -426,8 +403,8 @@ function ConfirmVisual() {
           textAlign: 'center',
           cursor: 'pointer',
         }}>
-          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand)' }}>30% Deposit</div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--dim)', marginTop: 2 }}>36 lei now</div>
+          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand)' }}>{t('depositOption')}</div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--dim)', marginTop: 2 }}>{t('depositAmount')}</div>
         </div>
         <div style={{
           flex: 1,
@@ -438,8 +415,8 @@ function ConfirmVisual() {
           textAlign: 'center',
           cursor: 'pointer',
         }}>
-          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--muted)' }}>Full Payment</div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--dim)', marginTop: 2 }}>120 lei now</div>
+          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--muted)' }}>{t('fullPayment')}</div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--dim)', marginTop: 2 }}>{t('fullPaymentAmount')}</div>
         </div>
       </div>
       {/* CTA */}
@@ -454,7 +431,7 @@ function ConfirmVisual() {
         cursor: 'pointer',
         letterSpacing: '-0.01em',
       }}>
-        Confirm & Pay
+        {t('confirmAndPay')}
       </div>
     </div>
   )
@@ -462,7 +439,10 @@ function ConfirmVisual() {
 
 /* ───── Step visual dispatcher ───── */
 
-function WizardStepVisual({ step }: { step: (typeof steps)[number] }) {
+function WizardStepVisual({ stepIndex }: { stepIndex: number }) {
+  const t = useTranslations('beautySecret.bookingWizard')
+  const key = stepKeys[stepIndex]
+
   const visualMap: Record<StepVisual, React.ReactNode> = {
     'service-selection': <ServiceSelectionVisual />,
     'date-time': <DateTimeVisual />,
@@ -480,13 +460,13 @@ function WizardStepVisual({ step }: { step: (typeof steps)[number] }) {
           color: 'var(--text)',
           marginBottom: 4,
         }}>
-          {step.title}
+          {t(`${key}Title`)}
         </div>
         <div style={{ fontSize: '0.82rem', color: 'var(--dim)' }}>
-          {step.desc}
+          {t(`${key}Desc`)}
         </div>
       </div>
-      {visualMap[step.visual]}
+      {visualMap[stepVisuals[stepIndex]]}
     </div>
   )
 }
@@ -494,6 +474,7 @@ function WizardStepVisual({ step }: { step: (typeof steps)[number] }) {
 /* ───── Main component ───── */
 
 export function BookingWizardDemo() {
+  const t = useTranslations('beautySecret.bookingWizard')
   const [current, setCurrent] = useState(0)
 
   const goNext = useCallback(() => setCurrent(c => Math.min(c + 1, 4)), [])
@@ -513,14 +494,14 @@ export function BookingWizardDemo() {
 
       {/* Step indicators */}
       <div className={styles.wizardSteps}>
-        {steps.map((step, i) => (
-          <div key={step.num} style={{ display: 'flex', alignItems: 'center', flex: i < 4 ? 1 : 'none' }}>
+        {stepKeys.map((key, i) => (
+          <div key={key} style={{ display: 'flex', alignItems: 'center', flex: i < 4 ? 1 : 'none' }}>
             <button
               className={`${styles.wizardStep} ${i <= current ? styles.wizardStepActive : ''}`}
               onClick={() => setCurrent(i)}
-              aria-label={`Step ${step.num}: ${step.title}`}
+              aria-label={t('stepAriaLabel', { num: i + 1, title: t(`${key}Title`) })}
             >
-              {i < current ? '✓' : step.num}
+              {i < current ? '✓' : i + 1}
             </button>
             {i < 4 && (
               <div className={`${styles.wizardLine} ${i < current ? styles.wizardLineCompleted : ''}`} />
@@ -532,7 +513,7 @@ export function BookingWizardDemo() {
       {/* Step content */}
       <div className={styles.wizardContent}>
         <div className={styles.wizardPanel}>
-          <WizardStepVisual step={steps[current]} />
+          <WizardStepVisual stepIndex={current} />
         </div>
       </div>
 
@@ -556,10 +537,10 @@ export function BookingWizardDemo() {
             transition: 'all 0.2s',
           }}
         >
-          ← Previous
+          {t('previous')}
         </button>
         <span className={styles.textDim} style={{ fontSize: '0.82rem' }}>
-          Step {current + 1} of 5
+          {t('stepXofY', { current: current + 1, total: 5 })}
         </span>
         <button
           onClick={goNext}
@@ -579,7 +560,7 @@ export function BookingWizardDemo() {
             transition: 'all 0.2s',
           }}
         >
-          Next →
+          {t('next')}
         </button>
       </div>
     </div>
