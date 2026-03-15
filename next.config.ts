@@ -4,6 +4,21 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.emamocanu.com",
+          },
+        ],
+        destination: "https://emamocanu.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
