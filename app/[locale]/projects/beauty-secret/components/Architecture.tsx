@@ -85,7 +85,7 @@ export function Architecture() {
       variant: 'frontend',
       boxes: [
         { title: 'Next.js 16', subKey: 'appRouterRsc' },
-        { title: 'React 19', subKey: 'components102' },
+        { title: 'React 19', subKey: 'components203' },
         { title: 'Tailwind CSS 4', subKey: 'darkLightThemes' },
       ],
     },
@@ -103,7 +103,7 @@ export function Architecture() {
       variant: 'backend',
       boxes: [
         { title: 'Convex', subKey: 'realtimeServerlessDb' },
-        { title: '157+ Functions', subKey: 'queriesMutations' },
+        { title: '300+ Functions', subKey: 'queriesMutations' },
         { title: 'HTTP Actions', subKey: 'webhookEndpoints' },
       ],
     },
@@ -112,6 +112,8 @@ export function Architecture() {
       variant: 'service',
       boxes: [
         { title: 'Stripe', subKey: 'paymentsWebhooks' },
+        { title: 'Twilio', subKey: 'smsMessaging' },
+        { title: 'SendGrid', subKey: 'emailCampaigns' },
         { title: 'Google Maps', subKey: 'embedDirections' },
         { title: 'Instagram', subKey: 'galleryFeed' },
         { title: 'WhatsApp', subKey: 'directContact' },
@@ -140,16 +142,18 @@ export function Architecture() {
     { name: 'services', purposeKey: 'dbServices', featuresKey: 'dbServicesFeatures' },
     { name: 'employees', purposeKey: 'dbEmployees', featuresKey: 'dbEmployeesFeatures' },
     { name: 'employeeAvailability', purposeKey: 'dbEmployeeAvailability', featuresKey: 'dbEmployeeAvailabilityFeatures' },
-    { name: 'employeeScheduleOverrides', purposeKey: 'dbEmployeeScheduleOverrides', featuresKey: 'dbEmployeeScheduleOverridesFeatures' },
     { name: 'customers', purposeKey: 'dbCustomers', featuresKey: 'dbCustomersFeatures' },
     { name: 'appointments', purposeKey: 'dbAppointments', featuresKey: 'dbAppointmentsFeatures' },
     { name: 'payments', purposeKey: 'dbPayments', featuresKey: 'dbPaymentsFeatures' },
-    { name: 'reviews', purposeKey: 'dbReviews', featuresKey: 'dbReviewsFeatures' },
+    { name: 'reviews + googleReviews', purposeKey: 'dbReviews', featuresKey: 'dbReviewsFeatures' },
     { name: 'giftCards', purposeKey: 'dbGiftCards', featuresKey: 'dbGiftCardsFeatures' },
-    { name: 'loyaltyTiers', purposeKey: 'dbLoyaltyTiers', featuresKey: 'dbLoyaltyTiersFeatures' },
-    { name: 'loyaltyHistory', purposeKey: 'dbLoyaltyHistory', featuresKey: 'dbLoyaltyHistoryFeatures' },
-    { name: 'salaryPayments', purposeKey: 'dbSalaryPayments', featuresKey: 'dbSalaryPaymentsFeatures' },
-    { name: 'expenses', purposeKey: 'dbExpenses', featuresKey: 'dbExpensesFeatures' },
+    { name: 'loyaltyTiers + Transactions + Benefits', purposeKey: 'dbLoyaltyTiers', featuresKey: 'dbLoyaltyTiersFeatures' },
+    { name: 'scheduledReminders', purposeKey: 'dbReminders', featuresKey: 'dbRemindersFeatures' },
+    { name: 'smsCampaigns + smsMessages', purposeKey: 'dbCampaigns', featuresKey: 'dbCampaignsFeatures' },
+    { name: 'inventoryItems + History', purposeKey: 'dbInventory', featuresKey: 'dbInventoryFeatures' },
+    { name: 'laserConsentForms + TreatmentSheets', purposeKey: 'dbLaser', featuresKey: 'dbLaserFeatures' },
+    { name: 'promotions + promoRedemptions', purposeKey: 'dbPromotions', featuresKey: 'dbPromotionsFeatures' },
+    { name: 'depositRequests', purposeKey: 'dbDeposits', featuresKey: 'dbDepositsFeatures' },
     { name: 'changeLogs', purposeKey: 'dbChangeLogs', featuresKey: 'dbChangeLogsFeatures' },
     { name: 'salonSettings', purposeKey: 'dbSalonSettings', featuresKey: 'dbSalonSettingsFeatures' },
   ]
@@ -180,6 +184,7 @@ export function Architecture() {
     'Service Catalog', 'Customer CRM', 'Financial Reports',
     'Performance Analytics', 'Review Moderation', 'Gift Cards',
     'Activity / Audit Log', 'Alerts System', 'Salary Payouts',
+    'Inventory (448 items)', 'Promotions', 'Loyalty Program', 'Schedule Management',
   ]
 
   /* ── GSAP: pinned scrollytelling for architecture diagram only ── */

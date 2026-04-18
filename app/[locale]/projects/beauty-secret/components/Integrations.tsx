@@ -92,7 +92,15 @@ export function Integrations() {
       itemKeys: ['stripe1', 'stripe2', 'stripe3', 'stripe4', 'stripe5', 'stripe6', 'stripe7'],
     },
     {
-      tagKey: 'authTag', tagClass: 'tagPink', titleKey: 'clerkTitle',
+      tagKey: 'messagingTag', tagClass: 'tagPink', titleKey: 'twilioTitle',
+      itemKeys: ['twilio1', 'twilio2', 'twilio3', 'twilio4', 'twilio5', 'twilio6', 'twilio7'],
+    },
+    {
+      tagKey: 'messagingTag', tagClass: 'tagPink', titleKey: 'sendgridTitle',
+      itemKeys: ['sendgrid1', 'sendgrid2', 'sendgrid3', 'sendgrid4', 'sendgrid5', 'sendgrid6', 'sendgrid7'],
+    },
+    {
+      tagKey: 'authTag', tagClass: 'tagPurple', titleKey: 'clerkTitle',
       itemKeys: ['clerk1', 'clerk2', 'clerk3', 'clerk4', 'clerk5', 'clerk6', 'clerk7'],
     },
     {

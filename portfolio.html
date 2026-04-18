@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emmanuella Andrea Mocanu — Full-Stack Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Emmanuella Andrea Mocanu — Full-Stack Developer specializing in Next.js, React, TypeScript, and AI-augmented development.">
+  <style>
+    /* ─────────────── RESET & BASE ─────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brand: #c46a86;
+      --brand2: #a77bd6;
+      --bg: #0e0c0d;
+      --bg2: #161314;
+      --surface: #1e1a1c;
+      --surface2: #262123;
+      --text: #f5f0f1;
+      --muted: #a8999c;
+      --dim: #766d70;
+      --border: #342e30;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+    }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--brand); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--brand2); }
+    img { max-width: 100%; display: block; }
+    code, pre { font-family: var(--mono); }
+    ::selection { background: rgba(196,106,134,0.35); }
+
+    /* ─────────────── LAYOUT ─────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section + .section { border-top: 1px solid var(--border); }
+
+    /* ─────────────── HEADER / NAV ─────────────── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(14,12,13,0.85);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(52,46,48,0.5);
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-logo span { background: linear-gradient(135deg, var(--brand), var(--brand2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 8px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #fff; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; color: #fff; }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      padding-top: 140px; padding-bottom: 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(196,106,134,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: 100px; left: -300px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(167,123,214,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 100px;
+      background: rgba(196,106,134,0.1); border: 1px solid rgba(196,106,134,0.2);
+      font-size: 0.82rem; color: var(--brand); font-weight: 500; margin-bottom: 24px;
+    }
+    .hero-label .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 20px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 620px; margin-bottom: 36px; }
+    .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .hero-stat .num {
+      font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-stat .label { font-size: 0.82rem; color: var(--dim); margin-top: 2px; }
+
+    /* ─────────────── SECTION HEADERS ─────────────── */
+    .section-header { margin-bottom: 48px; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 12px;
+    }
+    .section-title { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; }
+    .section-desc { color: var(--muted); margin-top: 8px; max-width: 600px; font-size: 0.95rem; }
+
+    /* ─────────────── CARDS / GRID ─────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .card:hover { border-color: rgba(196,106,134,0.3); transform: translateY(-2px); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    /* ─────────────── TECH STACK ─────────────── */
+    .tech-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text); font-weight: 500;
+      transition: border-color 0.2s;
+    }
+    .tech-badge:hover { border-color: var(--brand); }
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ─────────────── METRIC CARD ─────────────── */
+    .metric-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 20px; text-align: center;
+    }
+    .metric-card .val {
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .metric-card .desc { font-size: 0.82rem; color: var(--dim); margin-top: 4px; }
+
+    /* ─────────────── CODE BLOCK ─────────────── */
+    .code-block {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 20px; overflow-x: auto;
+      font-size: 0.82rem; line-height: 1.65; color: var(--muted);
+    }
+    .code-block .comment { color: var(--dim); }
+    .code-block .keyword { color: var(--brand2); }
+    .code-block .string { color: #8ec07c; }
+    .code-block .func { color: var(--brand); }
+    .code-block .type { color: #fabd2f; }
+
+    /* ─────────────── TIMELINE ─────────────── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 32px; }
+    .timeline-dot {
+      position: absolute; left: -32px; top: 6px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--brand);
+    }
+    .timeline-item.active .timeline-dot {
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(196,106,134,0.2);
+    }
+    .timeline-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+    .timeline-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* ─────────────── ARCHITECTURE DIAGRAM ─────────────── */
+    .arch-diagram {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; overflow-x: auto;
+    }
+    .arch-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .arch-box {
+      padding: 12px 20px; border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 600; text-align: center; min-width: 120px;
+    }
+    .arch-box.frontend { background: rgba(196,106,134,0.15); border: 1px solid rgba(196,106,134,0.3); color: var(--brand); }
+    .arch-box.backend { background: rgba(167,123,214,0.15); border: 1px solid rgba(167,123,214,0.3); color: var(--brand2); }
+    .arch-box.service { background: rgba(142,192,124,0.12); border: 1px solid rgba(142,192,124,0.3); color: #8ec07c; }
+    .arch-box.infra { background: rgba(250,189,47,0.12); border: 1px solid rgba(250,189,47,0.3); color: #fabd2f; }
+    .arch-arrow { text-align: center; color: var(--dim); font-size: 1.2rem; margin: 8px 0; }
+
+    /* ─────────────── AI FLUENCY ─────────────── */
+    .ai-card {
+      background: linear-gradient(135deg, rgba(196,106,134,0.06), rgba(167,123,214,0.06));
+      border: 1px solid rgba(196,106,134,0.15);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .ai-card h4 { font-size: 1rem; margin-bottom: 8px; }
+    .ai-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* ─────────────── FEATURE LIST ─────────────── */
+    .feature-list { list-style: none; }
+    .feature-list li {
+      padding: 10px 0; border-bottom: 1px solid rgba(52,46,48,0.5);
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list .icon { color: var(--brand); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+    /* ─────────────── FOOTER ─────────────── */
+    .site-footer {
+      padding: 40px 0; border-top: 1px solid var(--border);
+      text-align: center; color: var(--dim); font-size: 0.82rem;
+    }
+
+    /* ─────────────── TAB SYSTEM ─────────────── */
+    .tab-container { margin-top: 24px; }
+    .tab-nav { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; }
+    .tab-btn {
+      padding: 10px 20px; background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--dim); font-size: 0.85rem; font-weight: 500; cursor: pointer;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--muted); }
+    .tab-btn.active { color: var(--brand); border-bottom-color: var(--brand); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─────────────── RESPONSIVE ─────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .hero-stats { gap: 24px; }
+      .section { padding: 56px 0; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .arch-row { flex-direction: column; align-items: center; }
+    }
+
+    /* ─────────────── SCROLL REVEAL ─────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────── TABLE ─────────────── */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .data-table th {
+      text-align: left; padding: 10px 16px; color: var(--dim);
+      font-weight: 600; font-size: 0.78rem; text-transform: uppercase;
+      letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+    }
+    .data-table td { padding: 12px 16px; border-bottom: 1px solid rgba(52,46,48,0.4); color: var(--muted); }
+    .data-table tr:hover td { color: var(--text); }
+
+    /* ─────────────── MISC ─────────────── */
+    .tag {
+      display: inline-block; padding: 3px 10px; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .tag-green { background: rgba(142,192,124,0.15); color: #8ec07c; }
+    .tag-purple { background: rgba(167,123,214,0.15); color: var(--brand2); }
+    .tag-pink { background: rgba(196,106,134,0.15); color: var(--brand); }
+    .tag-yellow { background: rgba(250,189,47,0.15); color: #fabd2f; }
+
+    .divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .mb-12 { margin-bottom: 12px; }
+    .mb-16 { margin-bottom: 16px; }
+    .text-sm { font-size: 0.88rem; }
+    .text-xs { font-size: 0.82rem; }
+    .text-muted { color: var(--muted); }
+    .text-dim { color: var(--dim); }
+    .text-brand { color: var(--brand); }
+    .fw-600 { font-weight: 600; }
+    .fw-700 { font-weight: 700; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="nav-logo"><span>EA</span> Mocanu</div>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#integrations">Integrations</a></li>
+      <li><a href="#ai-fluency">AI Fluency</a></li>
+      <li><a href="#testing">Testing</a></li>
+      <li><a href="#security">Security</a></li>
+    </ul>
+    <a href="https://www.b-secret.com" target="_blank" rel="noopener" class="nav-cta">View Live Site &rarr;</a>
+  </div>
+</header>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero section" id="top">
+  <div class="container hero-inner reveal">
+    <div class="hero-label"><span class="dot"></span> Featured Project &mdash; Production Deployed</div>
+    <h1>Beauty Secret<br><span class="gradient">Salon Management Platform</span></h1>
+    <p class="hero-sub">
+      A production-grade full-stack SaaS application for a luxury beauty salon in Bucharest, Romania.
+      End-to-end: real-time booking, Stripe payments, role-based dashboards, internationalization,
+      and comprehensive test coverage &mdash; built with AI-augmented development workflows.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">48,000+</div><div class="label">Lines of Code</div></div>
+      <div class="hero-stat"><div class="num">227</div><div class="label">Source Files</div></div>
+      <div class="hero-stat"><div class="num">157+</div><div class="label">Backend Functions</div></div>
+      <div class="hero-stat"><div class="num">414+</div><div class="label">Test Cases</div></div>
+      <div class="hero-stat"><div class="num">112</div><div class="label">Git Commits</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ OVERVIEW ═══════════════ -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Project Overview</div>
+      <h2 class="section-title">What I Built &amp; Why</h2>
+      <p class="section-desc">
+        A real-world, client-facing platform that serves three distinct user roles,
+        processes real payments, and runs in production at www.b-secret.com.
+      </p>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <h3 class="fw-700 mb-12">The Problem</h3>
+        <p class="text-sm text-muted">
+          A beauty salon with 4 employees, 177+ services across 8 categories, and customers booking
+          via WhatsApp and phone calls. No centralized system for availability, payments, scheduling,
+          or employee performance tracking. Zero online presence for SEO discoverability.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="fw-700 mb-12">The Solution</h3>
+        <p class="text-sm text-muted">
+          A full-stack platform with a public-facing booking experience, real-time dashboards for
+          three roles (customer, employee, admin), integrated Stripe payments with deposit support,
+          a loyalty rewards program, and SEO-optimized category landing pages &mdash; all
+          internationalized in English and Romanian.
+        </p>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="mt-32 reveal">
+      <h3 class="fw-700 mb-16">Technology Stack</h3>
+      <div class="tech-grid">
+        <span class="tech-badge">Next.js 16</span>
+        <span class="tech-badge">React 19</span>
+        <span class="tech-badge">TypeScript 5</span>
+        <span class="tech-badge">Tailwind CSS 4</span>
+        <span class="tech-badge">Convex</span>
+        <span class="tech-badge">Clerk Auth</span>
+        <span class="tech-badge">Stripe</span>
+        <span class="tech-badge">next-intl</span>
+        <span class="tech-badge">next-themes</span>
+        <span class="tech-badge">GSAP</span>
+        <span class="tech-badge">Recharts</span>
+        <span class="tech-badge">date-fns</span>
+        <span class="tech-badge">Vitest</span>
+        <span class="tech-badge">Playwright</span>
+        <span class="tech-badge">Vercel</span>
+        <span class="tech-badge">Google Maps</span>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid-4 mt-32 reveal">
+      <div class="metric-card"><div class="val">16</div><div class="desc">Database Tables</div></div>
+      <div class="metric-card"><div class="val">102</div><div class="desc">React Components</div></div>
+      <div class="metric-card"><div class="val">38</div><div class="desc">App Routes</div></div>
+      <div class="metric-card"><div class="val">177</div><div class="desc">Services Cataloged</div></div>
+      <div class="metric-card"><div class="val">8</div><div class="desc">Service Categories</div></div>
+      <div class="metric-card"><div class="val">3</div><div class="desc">User Roles</div></div>
+      <div class="metric-card"><div class="val">2</div><div class="desc">Languages (EN/RO)</div></div>
+      <div class="metric-card"><div class="val">17</div><div class="desc">E2E Device Profiles</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ARCHITECTURE ═══════════════ -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">System Architecture</div>
+      <h2 class="section-title">How It All Fits Together</h2>
+      <p class="section-desc">
+        A serverless architecture built for real-time reactivity, type safety end-to-end, and
+        production-grade security.
+      </p>
+    </div>
+
+    <!-- Visual Architecture -->
+    <div class="arch-diagram reveal">
+      <div style="text-align:center; margin-bottom: 20px;">
+        <span class="text-xs text-dim">CLIENT LAYER</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box frontend">Next.js 16<br><span style="font-weight:400;font-size:0.75rem">App Router + RSC</span></div>
+        <div class="arch-box frontend">React 19<br><span style="font-weight:400;font-size:0.75rem">102 Components</span></div>
+        <div class="arch-box frontend">Tailwind CSS 4<br><span style="font-weight:400;font-size:0.75rem">Dark/Light Themes</span></div>
+      </div>
+      <div class="arch-arrow">&darr; &nbsp; WebSocket + REST &nbsp; &darr;</div>
+      <div style="text-align:center; margin: 12px 0 8px;">
+        <span class="text-xs text-dim">MIDDLEWARE</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box backend">Clerk Auth<br><span style="font-weight:400;font-size:0.75rem">JWT + RBAC</span></div>
+        <div class="arch-box backend">next-intl<br><span style="font-weight:400;font-size:0.75rem">i18n Routing</span></div>
+        <div class="arch-box backend">Proxy Middleware<br><span style="font-weight:400;font-size:0.75rem">Auth + Locale</span></div>
+      </div>
+      <div class="arch-arrow">&darr; &nbsp; Reactive Queries + Mutations &nbsp; &darr;</div>
+      <div style="text-align:center; margin: 12px 0 8px;">
+        <span class="text-xs text-dim">BACKEND LAYER</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box backend">Convex<br><span style="font-weight:400;font-size:0.75rem">Real-time Serverless DB</span></div>
+        <div class="arch-box backend">157+ Functions<br><span style="font-weight:400;font-size:0.75rem">Queries + Mutations</span></div>
+        <div class="arch-box backend">HTTP Actions<br><span style="font-weight:400;font-size:0.75rem">Webhook Endpoints</span></div>
+      </div>
+      <div class="arch-arrow">&darr; &nbsp; External Integrations &nbsp; &darr;</div>
+      <div style="text-align:center; margin: 12px 0 8px;">
+        <span class="text-xs text-dim">THIRD-PARTY SERVICES</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box service">Stripe<br><span style="font-weight:400;font-size:0.75rem">Payments + Webhooks</span></div>
+        <div class="arch-box service">Google Maps<br><span style="font-weight:400;font-size:0.75rem">Embed + Directions</span></div>
+        <div class="arch-box service">Instagram<br><span style="font-weight:400;font-size:0.75rem">Gallery Feed</span></div>
+        <div class="arch-box service">WhatsApp<br><span style="font-weight:400;font-size:0.75rem">Direct Contact</span></div>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div style="text-align:center; margin: 12px 0 8px;">
+        <span class="text-xs text-dim">INFRASTRUCTURE</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box infra">Vercel<br><span style="font-weight:400;font-size:0.75rem">Edge Network</span></div>
+        <div class="arch-box infra">Convex Cloud<br><span style="font-weight:400;font-size:0.75rem">Serverless Backend</span></div>
+        <div class="arch-box infra">Clerk Hosted<br><span style="font-weight:400;font-size:0.75rem">Auth Infrastructure</span></div>
+      </div>
+    </div>
+
+    <!-- Database Schema -->
+    <div class="mt-32 reveal">
+      <h3 class="fw-700 mb-16">Database Schema &mdash; 16 Tables</h3>
+      <p class="text-sm text-muted mb-16">
+        Convex serverless database with real-time reactive queries, automatic cache invalidation,
+        and WebSocket-driven live updates. All prices stored in cents for precision.
+      </p>
+      <div class="code-block" style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Table</th><th>Purpose</th><th>Key Features</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>categories</code></td><td>Service categories (8 types)</td><td>Slugs, display order, i18n names</td></tr>
+            <tr><td><code>services</code></td><td>177+ beauty treatments</td><td>Per-unit pricing, duration, gender tags</td></tr>
+            <tr><td><code>employees</code></td><td>Team members (4 active)</td><td>Bio, specialties, commission config</td></tr>
+            <tr><td><code>employeeAvailability</code></td><td>Weekly schedules</td><td>Day-of-week + HH:mm time ranges</td></tr>
+            <tr><td><code>employeeScheduleOverrides</code></td><td>Day-offs & custom hours</td><td>Date-specific overrides</td></tr>
+            <tr><td><code>customers</code></td><td>Booking customers</td><td>Email/phone dedup, loyalty points</td></tr>
+            <tr><td><code>appointments</code></td><td>Booking records</td><td>Status machine, conflict detection</td></tr>
+            <tr><td><code>payments</code></td><td>Stripe transactions</td><td>Deposit (30%) or full, refund tracking</td></tr>
+            <tr><td><code>reviews</code></td><td>5-star ratings</td><td>Tied to completed appointments</td></tr>
+            <tr><td><code>giftCards</code></td><td>Gift card system</td><td>Code generation, balance, expiry</td></tr>
+            <tr><td><code>loyaltyTiers</code></td><td>4-tier rewards</td><td>Points thresholds, auto-advancement</td></tr>
+            <tr><td><code>loyaltyHistory</code></td><td>Point transactions</td><td>Earn/redeem with appointment links</td></tr>
+            <tr><td><code>salaryPayments</code></td><td>Payroll records</td><td>Commission + salary tracking</td></tr>
+            <tr><td><code>expenses</code></td><td>Operating costs</td><td>Categorized, monthly aggregation</td></tr>
+            <tr><td><code>changeLogs</code></td><td>Audit trail</td><td>Before/after values, performer</td></tr>
+            <tr><td><code>salonSettings</code></td><td>Global config</td><td>Hours, lead time, slot intervals</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Routing Structure -->
+    <div class="mt-32 reveal">
+      <h3 class="fw-700 mb-16">Application Routes &mdash; 38 Pages</h3>
+      <div class="grid-3">
+        <div class="card">
+          <h4 class="text-sm fw-600 mb-12"><span class="tag tag-green">Public</span> &nbsp;Customer-Facing</h4>
+          <ul class="feature-list">
+            <li><span class="icon">&bull;</span> Landing page (7 sections)</li>
+            <li><span class="icon">&bull;</span> Service browsing &amp; category pages</li>
+            <li><span class="icon">&bull;</span> 8 SEO category landing pages</li>
+            <li><span class="icon">&bull;</span> Sign-in / Sign-up (Clerk)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="text-sm fw-600 mb-12"><span class="tag tag-purple">Protected</span> &nbsp;Customer Dashboard</h4>
+          <ul class="feature-list">
+            <li><span class="icon">&bull;</span> Appointments (upcoming &amp; past)</li>
+            <li><span class="icon">&bull;</span> Loyalty tier &amp; points history</li>
+            <li><span class="icon">&bull;</span> Profile management</li>
+            <li><span class="icon">&bull;</span> Booking preferences</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="text-sm fw-600 mb-12"><span class="tag tag-pink">Protected</span> &nbsp;Employee Dashboard</h4>
+          <ul class="feature-list">
+            <li><span class="icon">&bull;</span> Today's schedule &amp; calendar</li>
+            <li><span class="icon">&bull;</span> Earnings &amp; performance</li>
+            <li><span class="icon">&bull;</span> Availability management</li>
+            <li><span class="icon">&bull;</span> Achievements &amp; reviews</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-16 reveal">
+        <div class="card">
+          <h4 class="text-sm fw-600 mb-12"><span class="tag tag-yellow">Admin</span> &nbsp;Full Management Suite &mdash; 12 Sub-pages</h4>
+          <div class="tech-grid mt-16">
+            <span class="tech-badge">Appointments</span>
+            <span class="tech-badge">Calendar + Heatmap</span>
+            <span class="tech-badge">Staff Management</span>
+            <span class="tech-badge">Service Catalog</span>
+            <span class="tech-badge">Customer CRM</span>
+            <span class="tech-badge">Financial Reports</span>
+            <span class="tech-badge">Performance Analytics</span>
+            <span class="tech-badge">Review Moderation</span>
+            <span class="tech-badge">Gift Cards</span>
+            <span class="tech-badge">Activity / Audit Log</span>
+            <span class="tech-badge">Alerts System</span>
+            <span class="tech-badge">Salary Payouts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Core Features</div>
+      <h2 class="section-title">What the Platform Does</h2>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-container reveal">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="booking">Booking System</button>
+        <button class="tab-btn" data-tab="dashboards">Dashboards</button>
+        <button class="tab-btn" data-tab="loyalty">Loyalty & Gift Cards</button>
+        <button class="tab-btn" data-tab="seo">SEO & i18n</button>
+        <button class="tab-btn" data-tab="ui">UI/UX</button>
+      </div>
+
+      <!-- Booking Tab -->
+      <div class="tab-panel active" id="tab-booking">
+        <div class="grid-2">
+          <div>
+            <h3 class="fw-700 mb-12">5-Step Booking Wizard</h3>
+            <p class="text-sm text-muted mb-16">
+              A guided flow that walks customers through service selection, employee preference,
+              date/time picking with real-time availability, customer details, and a summary with
+              payment options.
+            </p>
+            <div class="timeline">
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">1. Service Selection</div>
+                <div class="timeline-desc">Category-filtered with gender grouping &amp; consultation interstitial</div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">2. Employee Selection</div>
+                <div class="timeline-desc">Filtered to staff offering the selected service</div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">3. Date &amp; Time Picker</div>
+                <div class="timeline-desc">Calendar grid + time slots with conflict-free availability</div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">4. Customer Form</div>
+                <div class="timeline-desc">Guest or authenticated &mdash; email/phone deduplication</div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">5. Summary &amp; Payment</div>
+                <div class="timeline-desc">Stripe Checkout: 30% deposit or full payment</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="fw-700 mb-12">Smart Availability Engine</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Dynamic slot computation per service duration</li>
+              <li><span class="icon">&#10003;</span> Employee weekly schedules + day-off overrides</li>
+              <li><span class="icon">&#10003;</span> Conflict detection prevents double-booking</li>
+              <li><span class="icon">&#10003;</span> 60-minute lead time enforcement</li>
+              <li><span class="icon">&#10003;</span> 30-day max advance booking window</li>
+              <li><span class="icon">&#10003;</span> 15-minute slot intervals</li>
+              <li><span class="icon">&#10003;</span> Guest booking (no sign-in required)</li>
+              <li><span class="icon">&#10003;</span> Instant booking prefill for quick re-booking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboards Tab -->
+      <div class="tab-panel" id="tab-dashboards">
+        <div class="grid-3">
+          <div class="card">
+            <h4 class="fw-600 mb-12">Customer Dashboard</h4>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Next appointment widget</li>
+              <li><span class="icon">&#10003;</span> Appointment history &amp; management</li>
+              <li><span class="icon">&#10003;</span> Loyalty tier progression</li>
+              <li><span class="icon">&#10003;</span> Points history &amp; redemption</li>
+              <li><span class="icon">&#10003;</span> Post-appointment reviews</li>
+              <li><span class="icon">&#10003;</span> Booking preferences</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="fw-600 mb-12">Employee Dashboard</h4>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Today's live schedule</li>
+              <li><span class="icon">&#10003;</span> Weekly appointment calendar</li>
+              <li><span class="icon">&#10003;</span> Earnings tracking (commission)</li>
+              <li><span class="icon">&#10003;</span> Availability editor + day-offs</li>
+              <li><span class="icon">&#10003;</span> Performance metrics</li>
+              <li><span class="icon">&#10003;</span> Unlockable achievements</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="fw-600 mb-12">Admin Dashboard</h4>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Real-time booking metrics</li>
+              <li><span class="icon">&#10003;</span> Revenue &amp; expense reports</li>
+              <li><span class="icon">&#10003;</span> Staff CRUD &amp; salary management</li>
+              <li><span class="icon">&#10003;</span> Peak hours heatmap</li>
+              <li><span class="icon">&#10003;</span> Activity audit log</li>
+              <li><span class="icon">&#10003;</span> Alerts &amp; pending approvals</li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-sm text-muted mt-24">
+          All dashboards use Convex reactive queries for real-time data synchronization &mdash;
+          no polling, automatic cache invalidation on mutations, instant UI updates.
+        </p>
+      </div>
+
+      <!-- Loyalty Tab -->
+      <div class="tab-panel" id="tab-loyalty">
+        <div class="grid-2">
+          <div>
+            <h3 class="fw-700 mb-12">4-Tier Loyalty Program</h3>
+            <p class="text-sm text-muted mb-16">
+              Points-based rewards with automatic tier advancement and discount redemption.
+            </p>
+            <div class="timeline">
+              <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-title">Glow (0+ pts)</div><div class="timeline-desc">Entry tier &mdash; earn 20 points per booking</div></div>
+              <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-title">Icon (100+ pts)</div><div class="timeline-desc">Unlock point redemption</div></div>
+              <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-title">Luxe (300+ pts)</div><div class="timeline-desc">Enhanced benefits</div></div>
+              <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-title">Elite (600+ pts)</div><div class="timeline-desc">Premium tier with max discounts</div></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="fw-700 mb-12">Gift Card System</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Unique code generation (BS-XXXX-XXXX format)</li>
+              <li><span class="icon">&#10003;</span> 8 occasion templates with themed gradients</li>
+              <li><span class="icon">&#10003;</span> Balance tracking &amp; partial redemption</li>
+              <li><span class="icon">&#10003;</span> Expiration management</li>
+              <li><span class="icon">&#10003;</span> Admin creation &amp; monitoring</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Tab -->
+      <div class="tab-panel" id="tab-seo">
+        <div class="grid-2">
+          <div>
+            <h3 class="fw-700 mb-12">SEO Implementation</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> 8 category landing pages with JSON-LD structured data</li>
+              <li><span class="icon">&#10003;</span> FAQPage, Product, AggregateRating schemas</li>
+              <li><span class="icon">&#10003;</span> BreadcrumbList navigation schema</li>
+              <li><span class="icon">&#10003;</span> Dynamic sitemap (20 entries)</li>
+              <li><span class="icon">&#10003;</span> robots.txt with optimized crawl rules</li>
+              <li><span class="icon">&#10003;</span> Open Graph + Twitter Card meta tags</li>
+              <li><span class="icon">&#10003;</span> Hreflang tags (EN/RO alternate links)</li>
+              <li><span class="icon">&#10003;</span> 53-test SEO regression suite</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="fw-700 mb-12">Internationalization</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> English &amp; Romanian with next-intl</li>
+              <li><span class="icon">&#10003;</span> 500+ translation strings per locale</li>
+              <li><span class="icon">&#10003;</span> Locale-aware routing (prefix as-needed)</li>
+              <li><span class="icon">&#10003;</span> Cookie-based locale persistence (1-year)</li>
+              <li><span class="icon">&#10003;</span> Diacritics-aware search (Unicode NFD normalization)</li>
+              <li><span class="icon">&#10003;</span> Sacramento font character normalization (comma-below &rarr; cedilla)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Tab -->
+      <div class="tab-panel" id="tab-ui">
+        <div class="grid-2">
+          <div>
+            <h3 class="fw-700 mb-12">Visual Design</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Dark/Light theme with CSS variables</li>
+              <li><span class="icon">&#10003;</span> Glass-morphism cards (backdrop-filter blur)</li>
+              <li><span class="icon">&#10003;</span> GSAP scroll-triggered animations</li>
+              <li><span class="icon">&#10003;</span> Radial gradient ambient backgrounds</li>
+              <li><span class="icon">&#10003;</span> Responsive from 320px to 4K</li>
+              <li><span class="icon">&#10003;</span> Custom scroll reveal with MutationObserver</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="fw-700 mb-12">UX Patterns</h3>
+            <ul class="feature-list">
+              <li><span class="icon">&#10003;</span> Gallery lightbox with swipe/keyboard nav</li>
+              <li><span class="icon">&#10003;</span> Focus trap on modals (accessibility)</li>
+              <li><span class="icon">&#10003;</span> Toast notification system</li>
+              <li><span class="icon">&#10003;</span> WhatsApp floating action button</li>
+              <li><span class="icon">&#10003;</span> iOS-style map provider action sheet</li>
+              <li><span class="icon">&#10003;</span> Error boundary with graceful recovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INTEGRATIONS ═══════════════ -->
+<section class="section" id="integrations">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">API Integrations</div>
+      <h2 class="section-title">External Services &amp; How They Connect</h2>
+    </div>
+
+    <div class="grid-2 reveal">
+      <!-- Convex -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span class="tag tag-purple">Backend</span>
+          <h3 class="fw-700">Convex &mdash; Real-Time Database</h3>
+        </div>
+        <ul class="feature-list">
+          <li><span class="icon">&bull;</span> 16 tables with optimized indexes for query patterns</li>
+          <li><span class="icon">&bull;</span> 157+ server functions (queries, mutations, actions)</li>
+          <li><span class="icon">&bull;</span> WebSocket-driven reactive queries (auto-updating UI)</li>
+          <li><span class="icon">&bull;</span> HTTP actions for webhook endpoints</li>
+          <li><span class="icon">&bull;</span> Convex validators for schema-level type safety</li>
+          <li><span class="icon">&bull;</span> Built-in file storage for uploads</li>
+          <li><span class="icon">&bull;</span> Server-side auth integration with Clerk JWT verification</li>
+        </ul>
+      </div>
+
+      <!-- Stripe -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span class="tag tag-green">Payments</span>
+          <h3 class="fw-700">Stripe &mdash; Payment Processing</h3>
+        </div>
+        <ul class="feature-list">
+          <li><span class="icon">&bull;</span> Checkout session creation (booking + gift card flows)</li>
+          <li><span class="icon">&bull;</span> Flexible payment: 30% deposit or full amount</li>
+          <li><span class="icon">&bull;</span> Webhook handler: <code>checkout.session.completed</code>, <code>charge.refunded</code></li>
+          <li><span class="icon">&bull;</span> Signature verification on all webhooks</li>
+          <li><span class="icon">&bull;</span> Product catalog sync script</li>
+          <li><span class="icon">&bull;</span> Custom salon branding on checkout pages</li>
+          <li><span class="icon">&bull;</span> Appointment auto-confirmation on payment success</li>
+        </ul>
+      </div>
+
+      <!-- Clerk -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span class="tag tag-pink">Authentication</span>
+          <h3 class="fw-700">Clerk &mdash; Auth &amp; Identity</h3>
+        </div>
+        <ul class="feature-list">
+          <li><span class="icon">&bull;</span> 3-level RBAC: customer, employee, admin</li>
+          <li><span class="icon">&bull;</span> JWT metadata-based role storage</li>
+          <li><span class="icon">&bull;</span> Combined middleware (Clerk auth + next-intl routing)</li>
+          <li><span class="icon">&bull;</span> Server-side role gating (<code>requirePageRole()</code>)</li>
+          <li><span class="icon">&bull;</span> Client-side soft checks (<code>softRequireRole()</code>)</li>
+          <li><span class="icon">&bull;</span> Convex server-side JWT verification</li>
+          <li><span class="icon">&bull;</span> Phone verification + autofill support</li>
+        </ul>
+      </div>
+
+      <!-- Google Maps, Instagram, WhatsApp -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span class="tag tag-yellow">Platform</span>
+          <h3 class="fw-700">Maps, Social &amp; Messaging</h3>
+        </div>
+        <ul class="feature-list">
+          <li><span class="icon">&bull;</span> Google Maps embed with styled border, glow, loading shimmer</li>
+          <li><span class="icon">&bull;</span> Address click &rarr; native map picker (Google Maps, Waze, Apple Maps)</li>
+          <li><span class="icon">&bull;</span> Geo URI deep links for mobile, HTTPS fallback for desktop</li>
+          <li><span class="icon">&bull;</span> Instagram gallery integration</li>
+          <li><span class="icon">&bull;</span> WhatsApp floating action button for direct salon contact</li>
+          <li><span class="icon">&bull;</span> Vercel Analytics &amp; Speed Insights</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Data Flow Diagram -->
+    <div class="mt-32 reveal">
+      <h3 class="fw-700 mb-16">Payment Flow &mdash; End to End</h3>
+      <div class="arch-diagram">
+        <div class="arch-row">
+          <div class="arch-box frontend">Customer<br><span style="font-weight:400;font-size:0.75rem">Completes Booking</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box backend">Convex Mutation<br><span style="font-weight:400;font-size:0.75rem">Creates Appointment (PENDING)</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box backend">Convex Action<br><span style="font-weight:400;font-size:0.75rem">Creates Stripe Checkout Session</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box service">Stripe Checkout<br><span style="font-weight:400;font-size:0.75rem">30% Deposit or Full Payment</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box service">Stripe Webhook<br><span style="font-weight:400;font-size:0.75rem">checkout.session.completed</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box backend">Convex HTTP Action<br><span style="font-weight:400;font-size:0.75rem">Verifies Signature &amp; Processes</span></div>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-row">
+          <div class="arch-box backend">Internal Mutations<br><span style="font-weight:400;font-size:0.75rem">Record Payment + Confirm Appointment + Award Loyalty Points</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ AI FLUENCY ═══════════════ -->
+<section class="section" id="ai-fluency">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">AI-Augmented Development</div>
+      <h2 class="section-title">Building with Claude Code</h2>
+      <p class="section-desc">
+        This project demonstrates fluency in AI-augmented software development,
+        using Claude Code as a development partner across the entire lifecycle.
+      </p>
+    </div>
+
+    <div class="grid-4 mb-16 reveal">
+      <div class="metric-card"><div class="val">93</div><div class="desc">AI Co-Authored Commits</div></div>
+      <div class="metric-card"><div class="val">83%</div><div class="desc">of Commits AI-Assisted</div></div>
+      <div class="metric-card"><div class="val">112</div><div class="desc">Total Commits</div></div>
+      <div class="metric-card"><div class="val">1</div><div class="desc">Developer (Solo)</div></div>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="ai-card">
+        <h4>CLAUDE.md &mdash; AI Agent Configuration</h4>
+        <p>
+          A comprehensive 310-line configuration file that serves as the "brain" for Claude Code &mdash;
+          documenting the entire architecture, database schema, routing structure, component organization,
+          data access patterns, authentication flow, and testing strategy. This enables the AI agent to
+          make context-aware decisions across the full stack.
+        </p>
+      </div>
+      <div class="ai-card">
+        <h4>Structured CLAUDE.md Sections</h4>
+        <p>
+          The configuration includes: project purpose, implemented features, remaining roadmap,
+          CLI commands, architecture decisions, Convex module reference table, routing structure,
+          data access patterns, booking system logic, auth flow, i18n config, component organization,
+          styling system, testing strategy, and a key files reference table.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-24 reveal">
+      <h3 class="fw-700 mb-16">How AI Was Leveraged</h3>
+      <div class="grid-3">
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">Architecture &amp; Schema Design</h4>
+          <p class="text-sm text-muted">
+            Collaborative design of the 16-table database schema, index optimization strategy,
+            and the reactive query architecture. The AI agent reasoned about normalization trade-offs,
+            Convex-specific patterns, and real-time query performance.
+          </p>
+        </div>
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">Feature Implementation</h4>
+          <p class="text-sm text-muted">
+            Complex features like the availability slot algorithm, conflict detection, loyalty tier
+            computation, and Stripe webhook handling were developed iteratively with Claude Code,
+            leveraging its ability to reason about edge cases and time-based logic.
+          </p>
+        </div>
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">Testing &amp; SEO Regression</h4>
+          <p class="text-sm text-muted">
+            The 53-test SEO regression suite and comprehensive E2E test strategy across 17 device
+            profiles were designed and implemented with AI assistance, ensuring coverage of
+            critical SEO signals and responsive layout integrity.
+          </p>
+        </div>
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">Security Hardening</h4>
+          <p class="text-sm text-muted">
+            Content Security Policy configuration, HSTS preload setup, dual CSP sync strategy
+            (next.config.ts + vercel.json), and role-based access control patterns were developed
+            with AI guidance on production security best practices.
+          </p>
+        </div>
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">i18n &amp; Unicode Handling</h4>
+          <p class="text-sm text-muted">
+            Bilingual support with next-intl, 500+ translation strings, diacritics-aware search
+            using Unicode NFD normalization, and Sacramento font character normalization for Romanian
+            characters (comma-below to cedilla mapping).
+          </p>
+        </div>
+        <div class="card">
+          <h4 class="fw-600 text-brand mb-12">Iterative UI Polish</h4>
+          <p class="text-sm text-muted">
+            Glass-morphism design system, GSAP animations, responsive breakpoint tuning across
+            commit iterations, and mobile-first layout fixes &mdash; reflecting the rapid
+            iteration cycle enabled by AI-augmented development.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAUDE.md Structure -->
+    <div class="mt-32 reveal">
+      <h3 class="fw-700 mb-16">CLAUDE.md Configuration Structure</h3>
+      <p class="text-sm text-muted mb-16">
+        The project's CLAUDE.md file acts as persistent context for the AI agent. Here's how it's organized
+        to maximize AI effectiveness:
+      </p>
+      <div class="code-block">
+<span class="comment"># CLAUDE.md — 310 lines of structured agent context</span>
+
+<span class="keyword">## Purpose</span>          <span class="comment"># Business domain + target users</span>
+<span class="keyword">## Current Status</span>    <span class="comment"># Implemented features + remaining roadmap</span>
+<span class="keyword">## Commands</span>          <span class="comment"># All npm scripts for dev, build, test, deploy</span>
+<span class="keyword">## Architecture</span>      <span class="comment"># Tech stack + data access patterns</span>
+  <span class="func">### Database</span>       <span class="comment"># Convex schema overview + pricing convention</span>
+  <span class="func">### Convex Modules</span> <span class="comment"># 22-row reference table (module → purpose)</span>
+  <span class="func">### Routing</span>        <span class="comment"># Full app/ directory tree + route security</span>
+  <span class="func">### Data Access</span>    <span class="comment"># Server vs. client component pattern + code sample</span>
+  <span class="func">### Booking System</span> <span class="comment"># Wizard flow + validation rules + guest dedup</span>
+  <span class="func">### Authentication</span> <span class="comment"># Clerk roles, middleware, JWT metadata</span>
+  <span class="func">### i18n</span>           <span class="comment"># Locales, config, prefix strategy</span>
+  <span class="func">### Components</span>     <span class="comment"># Organization by domain + barrel imports</span>
+  <span class="func">### Props Pattern</span>  <span class="comment"># Callback prop conventions</span>
+  <span class="func">### Styling</span>        <span class="comment"># Brand colors, glass-morphism, gradients</span>
+  <span class="func">### Testing</span>        <span class="comment"># Vitest + Playwright patterns + SEO regression</span>
+<span class="keyword">## Key Files</span>        <span class="comment"># 30-row reference table (file → purpose)</span>
+<span class="keyword">## Assets</span>           <span class="comment"># Logo + favicon locations</span>
+<span class="keyword">## Env Variables</span>   <span class="comment"># Template (no secrets, just structure)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTING ═══════════════ -->
+<section class="section" id="testing">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Quality Assurance</div>
+      <h2 class="section-title">Testing Strategy</h2>
+      <p class="section-desc">
+        A dual testing approach: Vitest for unit/integration tests and Playwright for end-to-end
+        validation across 17 device profiles.
+      </p>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div>
+        <h3 class="fw-700 mb-16">Unit Tests &mdash; 193 Cases (Vitest)</h3>
+        <div class="code-block" style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Module</th><th>Tests</th><th>Coverage</th></tr></thead>
+            <tbody>
+              <tr><td>SEO Regression</td><td><strong>53</strong></td><td>Sitemap, robots, JSON-LD, slugs, images</td></tr>
+              <tr><td>Gift Cards</td><td><strong>45</strong></td><td>Code gen, templates, formatting, storage</td></tr>
+              <tr><td>Proxy Auth Policy</td><td><strong>35</strong></td><td>Route security, role redirects, locale</td></tr>
+              <tr><td>Stripe Checkout</td><td><strong>15</strong></td><td>Session creation, deposit calc, branding</td></tr>
+              <tr><td>Role Management</td><td><strong>13</strong></td><td>JWT extraction, admin/employee checks</td></tr>
+              <tr><td>Date Utilities</td><td><strong>12</strong></td><td>Parsing, formatting, leap year, UTC</td></tr>
+              <tr><td>Scroll Reveal</td><td><strong>10</strong></td><td>IntersectionObserver, MutationObserver</td></tr>
+              <tr><td>Loyalty System</td><td><strong>7</strong></td><td>Points conversion, max redemption</td></tr>
+              <tr><td>Auth Proxy</td><td><strong>3</strong></td><td>Public/protected API distinction</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 class="fw-700 mb-16">E2E Tests &mdash; 221 Scenarios (Playwright)</h3>
+        <p class="text-sm text-muted mb-16">
+          Each test runs across 17 real device profiles, covering iPhones (SE through 16 Pro Max),
+          Android devices (Pixel 5 through Galaxy S25 Ultra), and tablets (iPad Mini, iPad Pro).
+        </p>
+        <div class="code-block" style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Spec</th><th>Coverage</th></tr></thead>
+            <tbody>
+              <tr><td>public.spec.ts</td><td>Landing, services, sign-in/up &mdash; no overflow</td></tr>
+              <tr><td>customer.spec.ts</td><td>Dashboard, appointments, loyalty, profile</td></tr>
+              <tr><td>employee.spec.ts</td><td>Schedule, performance, availability, reviews</td></tr>
+              <tr><td>admin.spec.ts</td><td>All 12 admin sub-pages responsive layout</td></tr>
+              <tr><td>functional.spec.ts</td><td>Booking flow, forms, modals, auth</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-16">
+          <h4 class="fw-600 text-sm mb-12">Device Profiles Tested</h4>
+          <div class="tech-grid">
+            <span class="tech-badge">iPhone SE</span>
+            <span class="tech-badge">iPhone 12</span>
+            <span class="tech-badge">iPhone 14 Pro</span>
+            <span class="tech-badge">iPhone 15 Pro Max</span>
+            <span class="tech-badge">iPhone 16 Pro Max</span>
+            <span class="tech-badge">Pixel 5</span>
+            <span class="tech-badge">Pixel 7</span>
+            <span class="tech-badge">Galaxy S24</span>
+            <span class="tech-badge">Galaxy S25 Ultra</span>
+            <span class="tech-badge">iPad Mini</span>
+            <span class="tech-badge">iPad Pro 11"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SECURITY ═══════════════ -->
+<section class="section" id="security">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Production Security</div>
+      <h2 class="section-title">Security &amp; Compliance</h2>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <h3 class="fw-700 mb-12">Security Headers</h3>
+        <ul class="feature-list">
+          <li><span class="icon">&#10003;</span> <strong>Content-Security-Policy</strong> &mdash; Strict allowlist for scripts, styles, connections, frames</li>
+          <li><span class="icon">&#10003;</span> <strong>HSTS</strong> &mdash; 2-year max-age with preload &amp; includeSubDomains</li>
+          <li><span class="icon">&#10003;</span> <strong>X-Frame-Options: DENY</strong> &mdash; Clickjacking prevention</li>
+          <li><span class="icon">&#10003;</span> <strong>X-Content-Type-Options: nosniff</strong> &mdash; MIME sniffing prevention</li>
+          <li><span class="icon">&#10003;</span> <strong>Referrer-Policy</strong> &mdash; strict-origin-when-cross-origin</li>
+          <li><span class="icon">&#10003;</span> <strong>Permissions-Policy</strong> &mdash; Camera, mic, geolocation disabled</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="fw-700 mb-12">Application Security</h3>
+        <ul class="feature-list">
+          <li><span class="icon">&#10003;</span> <strong>Role-Based Access</strong> &mdash; Middleware + server-side enforcement</li>
+          <li><span class="icon">&#10003;</span> <strong>JWT Verification</strong> &mdash; Clerk tokens verified in Convex backend</li>
+          <li><span class="icon">&#10003;</span> <strong>Webhook Signatures</strong> &mdash; Stripe webhook signature verification</li>
+          <li><span class="icon">&#10003;</span> <strong>Dual CSP Sync</strong> &mdash; next.config.ts + vercel.json kept in sync</li>
+          <li><span class="icon">&#10003;</span> <strong>Audit Trail</strong> &mdash; Change logs with before/after values</li>
+          <li><span class="icon">&#10003;</span> <strong>Error Boundaries</strong> &mdash; Graceful error recovery with user feedback</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-24 reveal">
+      <h3 class="fw-700 mb-16">CSP Domain Allowlist</h3>
+      <div class="code-block">
+<span class="keyword">script-src</span>  <span class="string">'self'</span> clerk.accounts.dev  stripe.com  cloudflare.com
+<span class="keyword">connect-src</span> <span class="string">'self'</span> *.convex.cloud  wss://*.convex.cloud  *.convex.site  clerk.accounts.dev  api.stripe.com
+<span class="keyword">frame-src</span>   clerk.accounts.dev  stripe.com  cloudflare.com  maps.google.com
+<span class="keyword">img-src</span>     <span class="string">'self'</span> data: blob:  img.clerk.com  *.stripe.com
+<span class="keyword">font-src</span>    <span class="string">'self'</span> data:
+<span class="keyword">object-src</span>  <span class="string">'none'</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TECHNICAL DECISIONS ═══════════════ -->
+<section class="section" id="decisions">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Engineering Decisions</div>
+      <h2 class="section-title">Architecture Trade-Offs &amp; Rationale</h2>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <h4 class="fw-600 mb-12">Convex Over Prisma/Drizzle</h4>
+        <p class="text-sm text-muted">
+          Chose Convex for its built-in WebSocket reactivity &mdash; all dashboard data auto-updates
+          without polling or manual cache invalidation. The trade-off is vendor lock-in, but the
+          developer experience gains (type-safe queries, zero-config subscriptions) justified the
+          choice for a real-time booking system.
+        </p>
+      </div>
+      <div class="card">
+        <h4 class="fw-600 mb-12">Soft vs. Strict Role Checks</h4>
+        <p class="text-sm text-muted">
+          Implemented dual auth patterns: <code>softRequireRole()</code> returns null (for graceful
+          UI degradation in queries) while <code>requireRole()</code> throws errors (for mutation
+          protection). This prevents error screens for legitimate UI variations while maintaining
+          strict security on data mutations.
+        </p>
+      </div>
+      <div class="card">
+        <h4 class="fw-600 mb-12">Time-as-Minutes for Slot Computation</h4>
+        <p class="text-sm text-muted">
+          The availability engine converts all times to minutes-since-midnight for fast integer
+          range comparisons instead of Date object manipulation. This simplifies conflict detection
+          logic and eliminates timezone edge cases in the slot calculation algorithm.
+        </p>
+      </div>
+      <div class="card">
+        <h4 class="fw-600 mb-12">Dual CSP Configuration Strategy</h4>
+        <p class="text-sm text-muted">
+          Vercel overrides Next.js security headers in production, requiring both next.config.ts
+          (for development) and vercel.json (for production) to stay synchronized. This is documented
+          in CLAUDE.md to prevent security regressions during AI-assisted development.
+        </p>
+      </div>
+      <div class="card">
+        <h4 class="fw-600 mb-12">Locale as Route Segment</h4>
+        <p class="text-sm text-muted">
+          Using <code>[locale]</code> as a dynamic route segment with "prefix as-needed" strategy
+          instead of redirects. Romanian (default) has no prefix, English gets <code>/en/</code>.
+          This maintains clean canonical URLs while preserving SEO integrity with hreflang tags.
+        </p>
+      </div>
+      <div class="card">
+        <h4 class="fw-600 mb-12">Prices in Cents</h4>
+        <p class="text-sm text-muted">
+          All monetary values stored as integers (cents/bani). 3500 = 35.00 RON. This avoids
+          floating-point precision issues common in financial calculations, and aligns with
+          Stripe's API which also expects amounts in the smallest currency unit.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BACKEND MODULES ═══════════════ -->
+<section class="section" id="backend">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Backend Deep Dive</div>
+      <h2 class="section-title">Convex Module Architecture</h2>
+      <p class="section-desc">
+        22 backend modules with 157+ server functions powering the entire application.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="code-block" style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Module</th><th>Functions</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>adminDashboard</code></td><td>23+</td><td>Revenue stats, pending appointments, staff metrics, expense tracking</td></tr>
+            <tr><td><code>employeeDashboard</code></td><td>11+</td><td>Today's schedule, weekly appointments, earnings, achievements</td></tr>
+            <tr><td><code>customerDashboard</code></td><td>7+</td><td>Appointment history, loyalty points, tier status</td></tr>
+            <tr><td><code>employees</code></td><td>21+</td><td>CRUD, role assignment, availability mutations</td></tr>
+            <tr><td><code>services</code></td><td>6+</td><td>Service catalog management with category filtering</td></tr>
+            <tr><td><code>categories</code></td><td>7+</td><td>Category CRUD and slug-based lookups</td></tr>
+            <tr><td><code>appointments</code></td><td>8+</td><td>Booking CRUD with conflict detection</td></tr>
+            <tr><td><code>availability</code></td><td>2+</td><td>Smart slot computation with overrides</td></tr>
+            <tr><td><code>stripe</code></td><td>10+</td><td>Checkout sessions, branding, metadata</td></tr>
+            <tr><td><code>http</code></td><td>1</td><td>Stripe webhook endpoint router</td></tr>
+            <tr><td><code>payments</code></td><td>3+</td><td>Payment tracking and status management</td></tr>
+            <tr><td><code>reviews</code></td><td>3+</td><td>Rating aggregation and listing</td></tr>
+            <tr><td><code>giftCards</code></td><td>4+</td><td>Code generation, balance, redemption</td></tr>
+            <tr><td><code>customers</code></td><td>4+</td><td>CRUD with email/phone deduplication</td></tr>
+            <tr><td><code>salaryPayments</code></td><td>4+</td><td>Payroll and commission tracking</td></tr>
+            <tr><td><code>loyaltyTiers</code></td><td>2+</td><td>Tier definitions and point thresholds</td></tr>
+            <tr><td><code>loyaltyHistory</code></td><td>2+</td><td>Point transaction history</td></tr>
+            <tr><td><code>profileChangeRequests</code></td><td>4+</td><td>Employee profile edit approval workflow</td></tr>
+            <tr><td><code>salonSettings</code></td><td>2+</td><td>Global settings singleton</td></tr>
+            <tr><td><code>expenses</code></td><td>2+</td><td>Operating cost management</td></tr>
+            <tr><td><code>seed</code></td><td>1</td><td>Database seeding (177 services, 4 employees, 4 tiers)</td></tr>
+            <tr><td><code>helpers/*</code></td><td>6+</td><td>Auth, conflicts, pricing, loyalty, changelog, dedup</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <p style="margin-bottom: 8px;">
+      <strong>Emmanuella Andrea Mocanu</strong> &mdash; Full-Stack Developer
+    </p>
+    <p>
+      Built with Next.js 16, React 19, TypeScript, Convex, Stripe, Clerk &mdash; deployed at
+      <a href="https://www.b-secret.com" target="_blank" rel="noopener">www.b-secret.com</a>
+    </p>
+    <p style="margin-top: 12px; font-size: 0.75rem;">
+      This portfolio case study was generated from a private repository. No sensitive information,
+      API keys, or environment variables are included.
+    </p>
+  </div>
+</footer>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      btn.closest('.tab-container').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.closest('.tab-container').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>

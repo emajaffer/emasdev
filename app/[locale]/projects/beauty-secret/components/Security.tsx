@@ -18,6 +18,8 @@ const appSecurityKeys = [
   'roleBasedAccess',
   'jwtVerification',
   'webhookSignatures',
+  'twilioHmac',
+  'clerkSvix',
   'dualCspSync',
   'auditTrail',
   'errorBoundaries',

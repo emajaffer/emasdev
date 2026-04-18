@@ -8,11 +8,11 @@ export function Hero() {
   const t = useTranslations('beautySecret.hero')
 
   const stats = [
-    { target: 48000, suffix: '+', labelKey: 'linesOfCode' },
-    { target: 227, suffix: '', labelKey: 'sourceFiles' },
-    { target: 157, suffix: '+', labelKey: 'backendFunctions' },
-    { target: 414, suffix: '+', labelKey: 'testCases' },
-    { target: 112, suffix: '', labelKey: 'gitCommits' },
+    { target: 113000, suffix: '+', labelKey: 'linesOfCode' },
+    { target: 413, suffix: '', labelKey: 'sourceFiles' },
+    { target: 300, suffix: '+', labelKey: 'backendFunctions' },
+    { target: 600, suffix: '+', labelKey: 'testCases' },
+    { target: 468, suffix: '', labelKey: 'gitCommits' },
   ]
 
   const delays = [styles.delay600, styles.delay700, styles.delay800, styles.delay900, styles.delay1000]

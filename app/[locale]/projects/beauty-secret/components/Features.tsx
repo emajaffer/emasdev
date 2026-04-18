@@ -102,8 +102,8 @@ function LoyaltyPanel() {
   const t = useTranslations('beautySecret.features')
 
   const loyaltyTiers = [
-    { name: 'Glow', pts: '0+', desc: t('tierGlow') },
-    { name: 'Icon', pts: '100+', desc: t('tierIcon') },
+    { name: 'Petal', pts: '0+', desc: t('tierPetal') },
+    { name: 'Bloom', pts: '100+', desc: t('tierBloom') },
     { name: 'Luxe', pts: '300+', desc: t('tierLuxe') },
     { name: 'Elite', pts: '600+', desc: t('tierElite') },
   ]

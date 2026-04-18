@@ -8,8 +8,9 @@ import styles from '../beauty-secret.module.css'
 
 const techStack = [
   'Next.js 16', 'React 19', 'TypeScript 5', 'Tailwind CSS 4',
-  'Convex', 'Clerk Auth', 'Stripe', 'next-intl',
-  'next-themes', 'GSAP', 'Recharts', 'date-fns',
+  'Convex', 'Clerk Auth', 'Stripe', 'Twilio',
+  'SendGrid', 'next-intl', 'next-themes', 'GSAP',
+  'Recharts', 'date-fns', 'jsPDF', 'qrcode.react',
   'Vitest', 'Playwright', 'Vercel', 'Google Maps',
 ]
 
@@ -18,14 +19,14 @@ export function Overview() {
   const sectionRef = useScrollReveal()
 
   const metrics = [
-    { val: 16, descKey: 'databaseTables' },
-    { val: 102, descKey: 'reactComponents' },
-    { val: 38, descKey: 'appRoutes' },
+    { val: 38, descKey: 'databaseTables' },
+    { val: 203, descKey: 'reactComponents' },
+    { val: 51, descKey: 'appRoutes' },
     { val: 177, descKey: 'servicesCataloged' },
-    { val: 8, descKey: 'serviceCategories' },
+    { val: 10, descKey: 'serviceCategories' },
     { val: 3, descKey: 'userRoles' },
     { val: 2, descKey: 'languages' },
-    { val: 17, descKey: 'e2eDeviceProfiles' },
+    { val: 14, descKey: 'cronJobs' },
   ]
 
   return (

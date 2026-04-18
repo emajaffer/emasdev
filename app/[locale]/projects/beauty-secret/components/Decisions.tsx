@@ -13,6 +13,8 @@ const decisionKeys = [
   'decision4',
   'decision5',
   'decision6',
+  'decision7',
+  'decision8',
 ] as const
 
 export function Decisions() {

@@ -16,25 +16,33 @@ const modules: BackendModule[] = [
   { module: 'adminDashboard', functions: '23+', purposeKey: 'adminDashboard' },
   { module: 'employeeDashboard', functions: '11+', purposeKey: 'employeeDashboard' },
   { module: 'customerDashboard', functions: '7+', purposeKey: 'customerDashboard' },
-  { module: 'employees', functions: '21+', purposeKey: 'employees' },
-  { module: 'services', functions: '6+', purposeKey: 'services' },
-  { module: 'categories', functions: '7+', purposeKey: 'categories' },
+  { module: 'employees / employeeDocuments', functions: '21+', purposeKey: 'employees' },
+  { module: 'services / categories', functions: '13+', purposeKey: 'services' },
   { module: 'appointments', functions: '8+', purposeKey: 'appointments' },
   { module: 'availability', functions: '2+', purposeKey: 'availability' },
-  { module: 'stripe', functions: '10+', purposeKey: 'stripe' },
-  { module: 'http', functions: '1', purposeKey: 'http' },
-  { module: 'payments', functions: '3+', purposeKey: 'payments' },
-  { module: 'reviews', functions: '3+', purposeKey: 'reviews' },
+  { module: 'stripe / payments', functions: '13+', purposeKey: 'stripe' },
+  { module: 'http', functions: '4', purposeKey: 'http' },
+  { module: 'messaging / messagingActions', functions: '10+', purposeKey: 'messaging' },
+  { module: 'smsCampaigns', functions: '8+', purposeKey: 'smsCampaigns' },
+  { module: 'reminders', functions: '6+', purposeKey: 'reminders' },
+  { module: 'loyaltyTiers / Transactions / Benefits / Notifications', functions: '12+', purposeKey: 'loyalty' },
+  { module: 'reviews / googleReviews', functions: '6+', purposeKey: 'reviews' },
   { module: 'giftCards', functions: '4+', purposeKey: 'giftCards' },
-  { module: 'customers', functions: '4+', purposeKey: 'customers' },
-  { module: 'salaryPayments', functions: '4+', purposeKey: 'salaryPayments' },
-  { module: 'loyaltyTiers', functions: '2+', purposeKey: 'loyaltyTiers' },
-  { module: 'loyaltyHistory', functions: '2+', purposeKey: 'loyaltyHistory' },
+  { module: 'customers / clerkSync', functions: '8+', purposeKey: 'customers' },
+  { module: 'customerOnboarding / Actions', functions: '6+', purposeKey: 'onboarding' },
+  { module: 'inventory / inventoryDashboard', functions: '8+', purposeKey: 'inventory' },
+  { module: 'laserConsentForms / TreatmentSheets / Tokens', functions: '10+', purposeKey: 'laser' },
+  { module: 'promotions', functions: '4+', purposeKey: 'promotions' },
+  { module: 'depositRequests / Mutations', functions: '4+', purposeKey: 'deposits' },
+  { module: 'closingTaskRotation', functions: '3+', purposeKey: 'closingTasks' },
   { module: 'profileChangeRequests', functions: '4+', purposeKey: 'profileChangeRequests' },
+  { module: 'profileTranslation', functions: '2+', purposeKey: 'profileTranslation' },
+  { module: 'salaryPayments / expenses', functions: '6+', purposeKey: 'salaryPayments' },
+  { module: 'instagram', functions: '3+', purposeKey: 'instagram' },
+  { module: 'crons', functions: '14', purposeKey: 'crons' },
   { module: 'salonSettings', functions: '2+', purposeKey: 'salonSettings' },
-  { module: 'expenses', functions: '2+', purposeKey: 'expenses' },
   { module: 'seed', functions: '1', purposeKey: 'seed' },
-  { module: 'helpers/*', functions: '6+', purposeKey: 'helpers' },
+  { module: 'helpers/* (21 modules)', functions: '40+', purposeKey: 'helpers' },
 ]
 
 export function BackendModules() {
@@ -60,7 +68,7 @@ export function BackendModules() {
           style={{ textAlign: 'center', marginBottom: 40 }}
         >
           <div className={styles.metricVal} style={{ fontSize: '3.5rem' }}>
-            <AnimatedCounter target={157} suffix="+" />
+            <AnimatedCounter target={300} suffix="+" />
           </div>
           <div
             className={styles.textDim}
